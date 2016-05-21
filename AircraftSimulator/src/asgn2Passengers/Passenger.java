@@ -72,7 +72,8 @@ public abstract class Passenger {
 	 * OR (departureTime < bookingTime) 
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
-		bookingTime = this.bookingTime;
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
 		this.passID = "" + Passenger.index; 
 		Passenger.index++; 
 		if(bookingTime < 0){
