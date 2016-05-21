@@ -90,6 +90,7 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p, int cancellationTime) throws PassengerException, AircraftException {
+		//TODO
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"C","N");
 		//Stuff here
@@ -106,6 +107,7 @@ public abstract class Aircraft {
 	 * @throws AircraftException if no seats available in <code>Passenger</code> fare class. 
 	 */
 	public void confirmBooking(Passenger p, int confirmationTime) throws AircraftException, PassengerException {
+		//TODO
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
 		//Stuff here
@@ -130,7 +132,10 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft empty; false otherwise 
 	 */
 	public boolean flightEmpty() {
-		
+		if (this.getNumPassengers() == 0) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -139,7 +144,13 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft full; false otherwise 
 	 */
 	public boolean flightFull() {
-		
+		int currentCapacity = this.firstCapacity + this.businessCapacity
+			+ this.premiumCapacity + this.economyCapacity;
+
+		if (currentCapacity >= this.capacity) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -152,7 +163,7 @@ public abstract class Aircraft {
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
 	public void flyPassengers(int departureTime) throws PassengerException { 
-		
+		//TODO
 	}
 	
 	/**
@@ -162,7 +173,7 @@ public abstract class Aircraft {
 	 * @return <code>Bookings</code> object containing the status.  
 	 */
 	public Bookings getBookings() {
-		
+		return new Bookings(this.numFirst, this.numBusiness, this.numPremium, this.numEconomy, this.getNumPassengers(), this.seats.size());
 	}
 	
 	/**
@@ -224,7 +235,7 @@ public abstract class Aircraft {
 	 */
 	public List<Passenger> getPassengers() {
 
-		return this;
+		return seats;
 	}
 	
 	/**
@@ -251,7 +262,7 @@ public abstract class Aircraft {
 	 */
 	public boolean hasPassenger(Passenger p) {
 
-		return isConfirmed(p);
+		return p.isConfirmed();
 	}
 	
 
@@ -279,7 +290,7 @@ public abstract class Aircraft {
 
 		boolean seatsRemaining = false;
 
-		switch(p.passID) {
+		switch(p.getPassID()) {
 			case "F:":
 				if (firstCapacity - numFirst > 0) {
 					seatsRemaining = true;
@@ -301,7 +312,7 @@ public abstract class Aircraft {
 					return seatsRemaining;
 				}
 			default:
-				seatsRemaining = false;
+				return seatsRemaining = false;
 		}
 	}
 
