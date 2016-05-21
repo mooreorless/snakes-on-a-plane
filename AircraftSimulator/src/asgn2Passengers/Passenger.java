@@ -72,11 +72,20 @@ public abstract class Passenger {
 	 * OR (departureTime < bookingTime) 
 	 */
 	public Passenger(int bookingTime, int departureTime) throws PassengerException  {
-		//Stuff here 
+		this.bookingTime = bookingTime;
+		this.departureTime = departureTime;
 		this.passID = "" + Passenger.index; 
 		Passenger.index++; 
-		//Stuff here 
-	}
+		if(bookingTime < 0){
+			throw new PassengerException("Booking time must be greater than 0");
+		} else if(departureTime < 0){
+			throw new PassengerException("Departure time must be greater than 0");
+		} else if(departureTime < bookingTime){
+			throw new PassengerException("Departure time must not be less than booking time");
+		} else {
+			//do nothing
+		}// End if
+	}// End Passenger
 	
 	/**
 	 * Simple no-argument constructor to support {@link #upgrade()}
@@ -123,7 +132,7 @@ public abstract class Passenger {
 	 * 		   OR (confirmationTime < 0) OR (departureTime < confirmationTime)
 	 */
 	public void confirmSeat(int confirmationTime, int departureTime) throws PassengerException {
-	
+		
 	}
 
 	/**
@@ -148,7 +157,7 @@ public abstract class Passenger {
 	 * @return the bookingTime
 	 */
 	public int getBookingTime() {
-		
+		return bookingTime;
 	}
 
 	/**
@@ -158,7 +167,7 @@ public abstract class Passenger {
 	 * @return the confirmationTime
 	 */
 	public int getConfirmationTime() {
-		
+		return confirmationTime;
 	}
 
 	/**
@@ -167,7 +176,7 @@ public abstract class Passenger {
 	 * @return the departureTime
 	 */
 	public int getDepartureTime() {
-		
+		return departureTime;
 	}
 	
 	/**
@@ -176,7 +185,7 @@ public abstract class Passenger {
 	 * @return the enterQueueTime
 	 */
 	public int getEnterQueueTime() {
-		
+		return enterQueueTime;
 	}
 
 	/**
@@ -185,7 +194,7 @@ public abstract class Passenger {
 	 * @return the exitQueueTime
 	 */
 	public int getExitQueueTime() {
-		
+		return exitQueueTime;
 	}
 
 	/**
@@ -194,7 +203,7 @@ public abstract class Passenger {
 	 * @return the passID
 	 */
 	public String getPassID() {
-		
+		return passID;
 	}
 
 	/**
@@ -203,7 +212,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-		
+		return this.confirmed;
 	}
 		
 	/**
@@ -212,7 +221,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Flown state; false otherwise 
 	 */
 	public boolean isFlown() {
-		
+		return this.flown;
 	}
 	
 	/**
@@ -221,7 +230,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if New state; false otherwise 
 	 */
 	public boolean isNew() {
-		
+		return this.newState;
 	}
 
 	/**
@@ -230,7 +239,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Queued state; false otherwise 
 	 */
 	public boolean isQueued() {
-		
+		return this.inQueue;
 	}
 	
 	/**
@@ -239,7 +248,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Refused state; false otherwise 
 	 */
 	public boolean isRefused() {
-		
+		return this.refused;
 	}
 	
 	/**
@@ -345,7 +354,7 @@ public abstract class Passenger {
 	 * @param <code>Passenger</code> state to transfer
 	 */
 	protected void copyPassengerState(Passenger p) {
-		
+		return this;
 	}
 	
 	//Various private helper methods to check arguments and throw exceptions
