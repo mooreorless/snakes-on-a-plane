@@ -2,7 +2,8 @@
  * 
  * This file is part of the AircraftSimulator Project, written as 
  * part of the assessment for CAB302, semester 1, 2016. 
- * 
+ *
+ * @author elliottmoore
  */
 package asgn2Aircraft;
 
@@ -65,8 +66,18 @@ public abstract class Aircraft {
 	 * @throws AircraftException if isNull(flightCode) OR (departureTime <=0) OR ({first,business,premium,economy} <0)
 	 */
 	public Aircraft(String flightCode,int departureTime, int first, int business, int premium, int economy) throws AircraftException {
-		//Lots here 
+		//Lots here
+		this.flightCode = flightCode;
+		this.departureTime = departureTime;
+		this.firstCapacity = first;
+		this.businessCapacity = business;
+		this.premiumCapacity = premium;
+		this.economyCapacity = economy;
 		this.status = "";
+
+		if ( isNull(flightCode) || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
+			throw new AircraftException("Flight code null, departureTime invalid, invalid num of passengers");
+		}
 	}
 	
 	/**
@@ -161,7 +172,8 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Business Class passengers 
 	 */
 	public int getNumBusiness() {
-		
+
+		return numBusiness;
 	}
 	
 	
@@ -171,7 +183,8 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Economy Class passengers 
 	 */
 	public int getNumEconomy() {
-		
+
+		return numEconomy;
 	}
 
 	/**
@@ -180,7 +193,8 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of First Class passengers 
 	 */
 	public int getNumFirst() {
-		
+
+		return numFirst;
 	}
 
 	/**
@@ -189,7 +203,8 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Confirmed passengers 
 	 */
 	public int getNumPassengers() {
-		
+
+		return (numFirst + numBusiness + numPremium + numEconomy);
 	}
 	
 	/**
@@ -198,7 +213,8 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Premium Economy Class passengers
 	 */
 	public int getNumPremium() {
-		
+
+		return numPremium;
 	}
 	
 	/**
@@ -208,7 +224,8 @@ public abstract class Aircraft {
 	 * @return <code>List<Passenger></code> object containing the passengers.  
 	 */
 	public List<Passenger> getPassengers() {
-		
+
+		return this;
 	}
 	
 	/**
@@ -234,7 +251,8 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if isConfirmed(p); false otherwise 
 	 */
 	public boolean hasPassenger(Passenger p) {
-		
+
+		return isConfirmed(p);
 	}
 	
 
@@ -258,8 +276,17 @@ public abstract class Aircraft {
 	 * @param p <code>Passenger</code> to be Confirmed
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
-	public boolean seatsAvailable(Passenger p) {		
-		
+	public boolean seatsAvailable(Passenger p) {
+
+		//First(p);
+
+//		//not sure how to determine class of passenger
+//		int seatsRemaining = getNumPassengers() - this.seats.size();
+//
+//		if (seatsRemaining == 0) {
+//			return false;
+//		}
+//		return p;
 	}
 
 	/* 
