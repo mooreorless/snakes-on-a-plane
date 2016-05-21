@@ -66,8 +66,7 @@ public abstract class Aircraft {
 	 * @throws AircraftException if isNull(flightCode) OR (departureTime <=0) OR ({first,business,premium,economy} <0)
 	 */
 	public Aircraft(String flightCode,int departureTime, int first, int business, int premium, int economy) throws AircraftException {
-		//Lots here
-		this.flightCode = flightCode;
+
 		this.departureTime = departureTime;
 		this.firstCapacity = first;
 		this.businessCapacity = business;
@@ -90,7 +89,7 @@ public abstract class Aircraft {
 	 * is invalid. See {@link asgn2Passengers.Passenger#cancelSeat(int)}
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
-	public void cancelBooking(Passenger p,int cancellationTime) throws PassengerException, AircraftException {
+	public void cancelBooking(Passenger p, int cancellationTime) throws PassengerException, AircraftException {
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"C","N");
 		//Stuff here
@@ -106,7 +105,7 @@ public abstract class Aircraft {
 	 * OR confirmationTime OR departureTime is invalid. See {@link asgn2Passengers.Passenger#confirmSeat(int, int)}
 	 * @throws AircraftException if no seats available in <code>Passenger</code> fare class. 
 	 */
-	public void confirmBooking(Passenger p,int confirmationTime) throws AircraftException, PassengerException { 
+	public void confirmBooking(Passenger p, int confirmationTime) throws AircraftException, PassengerException {
 		//Stuff here
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
 		//Stuff here
@@ -278,15 +277,32 @@ public abstract class Aircraft {
 	 */
 	public boolean seatsAvailable(Passenger p) {
 
-		//First(p);
+		boolean seatsRemaining = false;
 
-//		//not sure how to determine class of passenger
-//		int seatsRemaining = getNumPassengers() - this.seats.size();
-//
-//		if (seatsRemaining == 0) {
-//			return false;
-//		}
-//		return p;
+		switch(p.passID) {
+			case "F:":
+				if (firstCapacity - numFirst > 0) {
+					seatsRemaining = true;
+					return seatsRemaining;
+				}
+			case "J:":
+				if (businessCapacity - numBusiness > 0) {
+					seatsRemaining = true;
+					return seatsRemaining;
+				}
+			case "P:":
+				if (premiumCapacity - numPremium > 0) {
+					seatsRemaining = true;
+					return seatsRemaining;
+				}
+			case "Y:":
+				if (economyCapacity - numEconomy > 0) {
+					seatsRemaining = true;
+					return seatsRemaining;
+				}
+			default:
+				seatsRemaining = false;
+		}
 	}
 
 	/* 
@@ -295,7 +311,7 @@ public abstract class Aircraft {
 	 */
 	@Override
 	public String toString() {
-		return aircraftIDString() + " Count: " + this.seats.size() 
+		return aircraftIDString() + " Count: " + this.seats.size()
 				+ " [F: " + numFirst
 				+ " J: " + numBusiness 
 				+ " P: " + numPremium 

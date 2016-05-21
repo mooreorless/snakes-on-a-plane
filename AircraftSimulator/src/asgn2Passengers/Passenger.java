@@ -140,7 +140,7 @@ public abstract class Passenger {
 	 * 	     this.getDepartureTime() == departureTime<br>
 	 * <ul>
 	 * <li>confirmSeat: New -> Confirmed</li>
-	 * <li>confirmSeat: Queued -> Confirmed; up until departureTime</li> 
+	 * <li>confirmSeat: Queued -> Confirmed; up until departureTime</li> d
 	 * <li>if isQueued(this), then POST: this.getExitQueueTime() == confirmationTime</li>
 	 * </ul>
 	 * 
@@ -210,7 +210,6 @@ public abstract class Passenger {
 	 * @return the bookingTime
 	 */
 	public int getBookingTime() {
-		
 		return bookingTime;
 	}
 
@@ -221,7 +220,6 @@ public abstract class Passenger {
 	 * @return the confirmationTime
 	 */
 	public int getConfirmationTime() {
-		
 		return confirmationTime;
 	}
 
@@ -231,7 +229,6 @@ public abstract class Passenger {
 	 * @return the departureTime
 	 */
 	public int getDepartureTime() {
-		
 		return departureTime;
 	}
 	
@@ -241,7 +238,6 @@ public abstract class Passenger {
 	 * @return the enterQueueTime
 	 */
 	public int getEnterQueueTime() {
-		
 		return enterQueueTime;
 	}
 
@@ -251,7 +247,6 @@ public abstract class Passenger {
 	 * @return the exitQueueTime
 	 */
 	public int getExitQueueTime() {
-		
 		return exitQueueTime;
 	}
 
@@ -261,7 +256,6 @@ public abstract class Passenger {
 	 * @return the passID
 	 */
 	public String getPassID() {
-		
 		return passID;
 	}
 
@@ -271,7 +265,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
-		
 		return this.confirmed;
 	}
 		
@@ -281,7 +274,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Flown state; false otherwise 
 	 */
 	public boolean isFlown() {
-		
 		return this.flown;
 	}
 	
@@ -291,7 +283,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if New state; false otherwise 
 	 */
 	public boolean isNew() {
-		
 		return this.newState;
 	}
 
@@ -301,7 +292,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Queued state; false otherwise 
 	 */
 	public boolean isQueued() {
-		
 		return this.inQueue;
 	}
 	
@@ -311,7 +301,6 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Refused state; false otherwise 
 	 */
 	public boolean isRefused() {
-		
 		return this.refused;
 	}
 	
@@ -448,7 +437,7 @@ public abstract class Passenger {
 	 * @param <code>Passenger</code> state to transfer
 	 */
 	protected void copyPassengerState(Passenger p) {
-		return this;
+		
 	}
 	
 	//Various private helper methods to check arguments and throw exceptions
