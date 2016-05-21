@@ -87,16 +87,16 @@ public abstract class Passenger {
 			throw new PassengerException("Departure time must not be before booking time");
 		} else {
 			//do nothing
-		}// End if
+		}
 		
-	}// End Passenger()
+	}
 	
 	/**
 	 * Simple no-argument constructor to support {@link #upgrade()}
 	 */
 	protected Passenger() {
 
-	}// End Passenger()
+	}
 	
 	/**
 	 * Transition passenger to New<br>
@@ -420,6 +420,14 @@ public abstract class Passenger {
 	 */
 	public boolean wasConfirmed() {
 		
+		int minConfirmationTime = 0;
+		
+		// if confirmation time was ever set, return true. Otherwise return false.
+		if(this.confirmationTime > minConfirmationTime){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -429,6 +437,14 @@ public abstract class Passenger {
 	 */
 	public boolean wasQueued() {
 		
+		int minQueueTime = 0;
+		
+		// if the enter queue time was ever set, return true. Otherwise return false.
+		if(this.enterQueueTime > minQueueTime){
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -437,7 +453,17 @@ public abstract class Passenger {
 	 * @param <code>Passenger</code> state to transfer
 	 */
 	protected void copyPassengerState(Passenger p) {
-		
+		p.passID = this.passID;
+		p.newState = this.newState;
+		p.confirmed = this.confirmed;
+		p.inQueue = this.inQueue;
+		p.flown = this.flown;
+		p.refused = this.refused;
+		p.bookingTime = this.bookingTime;
+		p.enterQueueTime = this.enterQueueTime;
+		p.exitQueueTime = this.exitQueueTime;
+		p.confirmationTime = this.confirmationTime;
+		p.departureTime = this.departureTime;
 	}
 	
 	//Various private helper methods to check arguments and throw exceptions
