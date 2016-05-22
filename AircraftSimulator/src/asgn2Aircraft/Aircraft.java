@@ -263,12 +263,9 @@ public abstract class Aircraft {
 	 */
 	public List<Passenger> getPassengers() {
 
-		return seats; //needs to be a copy
-
-//		List<Passenger> seatsCopy;
-//		seatsCopy = this.seats;
-//
-//		return seatsCopy;
+		List<Passenger> copy = new ArrayList<Passenger>();
+		copy.addAll(seats);
+		return copy;
 	}
 	
 	/**
