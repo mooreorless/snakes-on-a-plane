@@ -376,8 +376,41 @@ public abstract class Aircraft {
 	 * by upgrades to First), and then finally, we do the same for Economy, upgrading 
 	 * where possible to Premium.  
 	 */
-	public void upgradeBookings() { 
-		
+	public void upgradeBookings() {
+
+		for (Passenger p : seats) {
+			if (p instanceof First) {
+				if (seatsAvailable(p)) {
+					for (Passenger x : seats) {
+						if (x instanceof Business) {
+							seats.remove(x);
+							x.upgrade();
+							seats.add(x);
+						}
+					}
+				}
+			} else if (p instanceof Business) {
+				if (seatsAvailable(p)) {
+					for (Passenger x : seats) {
+						if (x instanceof Premium) {
+							seats.remove(x);
+							x.upgrade();
+							seats.add(x);
+						}
+					}
+				}
+			} else if (p instanceof Premium) {
+				if (seatsAvailable(p)) {
+					for (Passenger x : seats) {
+						if (x instanceof Economy) {
+							seats.remove(x);
+							x.upgrade();
+							seats.add(x);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
