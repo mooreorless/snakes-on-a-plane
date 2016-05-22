@@ -74,7 +74,7 @@ public abstract class Aircraft {
 		this.economyCapacity = economy;
 		this.status = "";
 
-		if ( isNull(flightCode) || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
+		if ( flightCode.isEmpty() || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
 			throw new AircraftException("Flight code null, departureTime invalid, invalid num of passengers");
 		}
 	}
@@ -90,11 +90,25 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p, int cancellationTime) throws PassengerException, AircraftException {
-		//TODO
-		//Stuff here
-		this.status += Log.setPassengerMsg(p,"C","N");
-		//Stuff here
+		if (!hasPassenger(p)) {
+			throw new AircraftException("Passenger not recorded on flight");
+		}
+		p.cancelSeat(cancellationTime);
+		this.status += Log.setPassengerMsg(p, "C", "N");
+		seats.remove(p);
+
+		// Determine passenger type and decrement it's fare count
+		if (p instanceof First) {
+			--numFirst;
+		} else if (p instanceof Business) {
+			--numBusiness;
+		} else if (p instanceof Premium) {
+			--numPremium;
+		} else if (p instanceof Economy) {
+			--numEconomy;
+		}
 	}
+
 
 	/**
 	 * Method to add a Passenger to the aircraft seating. 
@@ -107,10 +121,24 @@ public abstract class Aircraft {
 	 * @throws AircraftException if no seats available in <code>Passenger</code> fare class. 
 	 */
 	public void confirmBooking(Passenger p, int confirmationTime) throws AircraftException, PassengerException {
-		//TODO
-		//Stuff here
+
+		if (!seatsAvailable(p)) {
+			throw new AircraftException("No seats available in this fare class");
+		}
+		p.confirmSeat(confirmationTime, departureTime);
+		seats.add(p);
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
-		//Stuff here
+
+		// Determine passenger type and increment it's fare count
+		if (p instanceof First) {
+			++numFirst;
+		} else if (p instanceof Business) {
+			++numBusiness;
+		} else if (p instanceof Premium) {
+			++numPremium;
+		} else if (p instanceof Economy) {
+			++numEconomy;
+		}
 	}
 	
 	/**
@@ -162,8 +190,11 @@ public abstract class Aircraft {
 	 * @throws PassengerException if <code>Passenger</code> is in incorrect state 
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
-	public void flyPassengers(int departureTime) throws PassengerException { 
-		//TODO
+	public void flyPassengers(int departureTime) throws PassengerException {
+
+		for (Passenger p : seats) {
+			p.flyPassenger(departureTime);
+		}
 	}
 	
 	/**
@@ -235,7 +266,9 @@ public abstract class Aircraft {
 	 */
 	public List<Passenger> getPassengers() {
 
-		return seats;
+		List<Passenger> copy = new ArrayList<Passenger>();
+		copy.addAll(seats);
+		return copy;
 	}
 	
 	/**
@@ -288,32 +321,35 @@ public abstract class Aircraft {
 	 */
 	public boolean seatsAvailable(Passenger p) {
 
-		boolean seatsRemaining = false;
-
-		switch(p.getPassID()) {
-			case "F:":
-				if (firstCapacity - numFirst > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			case "J:":
-				if (businessCapacity - numBusiness > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			case "P:":
-				if (premiumCapacity - numPremium > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			case "Y:":
-				if (economyCapacity - numEconomy > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			default:
-				return seatsRemaining = false;
+		if (p instanceof First) {
+			if (firstCapacity - numFirst == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
 		}
+		if (p instanceof Business) {
+			if (businessCapacity - numBusiness == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
+		}
+		if (p instanceof Premium) {
+			if (premiumCapacity - numPremium == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
+		}
+		if (p instanceof Economy) {
+			if (economyCapacity - numEconomy == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/* 
