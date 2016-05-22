@@ -190,8 +190,11 @@ public abstract class Aircraft {
 	 * @throws PassengerException if <code>Passenger</code> is in incorrect state 
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
-	public void flyPassengers(int departureTime) throws PassengerException { 
-		//TODO
+	public void flyPassengers(int departureTime) throws PassengerException {
+
+		for (Passenger p : seats) {
+			p.flyPassenger(departureTime);
+		}
 	}
 	
 	/**
@@ -318,32 +321,35 @@ public abstract class Aircraft {
 	 */
 	public boolean seatsAvailable(Passenger p) {
 
-		boolean seatsRemaining = false;
-
-		switch(p.getPassID()) {
-			case "F:":
-				if (firstCapacity - numFirst > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			case "J:":
-				if (businessCapacity - numBusiness > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			case "P:":
-				if (premiumCapacity - numPremium > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			case "Y:":
-				if (economyCapacity - numEconomy > 0) {
-					seatsRemaining = true;
-					return seatsRemaining;
-				}
-			default:
-				return seatsRemaining = false;
+		if (p instanceof First) {
+			if (firstCapacity - numFirst == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
 		}
+		if (p instanceof Business) {
+			if (businessCapacity - numBusiness == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
+		}
+		if (p instanceof Premium) {
+			if (premiumCapacity - numPremium == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
+		}
+		if (p instanceof Economy) {
+			if (economyCapacity - numEconomy == 0) {
+				noSeatsAvailableMsg(p);
+			} else {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/* 

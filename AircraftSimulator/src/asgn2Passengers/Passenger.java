@@ -188,16 +188,16 @@ public abstract class Passenger {
 	 *         isFlown(this) OR (departureTime <= 0)
 	 */
 	public void flyPassenger(int departureTime) throws PassengerException {
-		
+
 		int invalidDepartureTime = 0;
-		
+
 		// Check for an exception
 		if(this.isNew() || this.isQueued() || this.isRefused() || this.isFlown()){
 			throw new PassengerException("Passenger's current state is invalid");
 		} else if(departureTime <= invalidDepartureTime){
 			throw new PassengerException("Departure time is less than or equal to 0");
 		}// End if
-		
+
 		// Fly the passenger
 		this.flown = true;
 		this.confirmed = false;
