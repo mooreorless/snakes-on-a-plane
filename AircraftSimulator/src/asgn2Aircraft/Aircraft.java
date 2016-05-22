@@ -74,7 +74,7 @@ public abstract class Aircraft {
 		this.economyCapacity = economy;
 		this.status = "";
 
-		if ( isNull(flightCode) || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
+		if ( flightCode.isEmpty() || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
 			throw new AircraftException("Flight code null, departureTime invalid, invalid num of passengers");
 		}
 	}
@@ -90,11 +90,25 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p, int cancellationTime) throws PassengerException, AircraftException {
-		//TODO
-		//Stuff here
-		this.status += Log.setPassengerMsg(p,"C","N");
-		//Stuff here
+		if (!hasPassenger(p)) {
+			throw new AircraftException("Passenger not recorded on flight");
+		}
+		p.cancelSeat(cancellationTime);
+		this.status += Log.setPassengerMsg(p, "C", "N");
+		seats.remove(p);
+
+		// Determine passenger type and decrement it's count
+		if (p instanceof First) {
+			--numFirst;
+		} else if (p instanceof Business) {
+			--numBusiness;
+		} else if (p instanceof Premium) {
+			--numPremium;
+		} else if (p instanceof Economy) {
+			--numEconomy;
+		}
 	}
+
 
 	/**
 	 * Method to add a Passenger to the aircraft seating. 
@@ -108,9 +122,13 @@ public abstract class Aircraft {
 	 */
 	public void confirmBooking(Passenger p, int confirmationTime) throws AircraftException, PassengerException {
 		//TODO
-		//Stuff here
+		// Some local exception stuff
+		// throw Exception here maybe
+		// Transition method on the passenger
+		p.confirmSeat(confirmationTime, departureTime);
+		// Update of status string for the aircraft (below)
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
-		//Stuff here
+		// Decrements the countS - polymorhphic
 	}
 	
 	/**
@@ -235,7 +253,12 @@ public abstract class Aircraft {
 	 */
 	public List<Passenger> getPassengers() {
 
-		return seats;
+		return seats; //needs to be a copy
+
+//		List<Passenger> seatsCopy;
+//		seatsCopy = this.seats;
+//
+//		return seatsCopy;
 	}
 	
 	/**
