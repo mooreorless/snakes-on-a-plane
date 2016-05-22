@@ -97,7 +97,7 @@ public abstract class Aircraft {
 		this.status += Log.setPassengerMsg(p, "C", "N");
 		seats.remove(p);
 
-		// Determine passenger type and decrement it's count
+		// Determine passenger type and decrement it's fare count
 		if (p instanceof First) {
 			--numFirst;
 		} else if (p instanceof Business) {
@@ -121,14 +121,24 @@ public abstract class Aircraft {
 	 * @throws AircraftException if no seats available in <code>Passenger</code> fare class. 
 	 */
 	public void confirmBooking(Passenger p, int confirmationTime) throws AircraftException, PassengerException {
-		//TODO
-		// Some local exception stuff
-		// throw Exception here maybe
-		// Transition method on the passenger
+
+		if (!seatsAvailable(p)) {
+			throw new AircraftException("No seats available in this fare class");
+		}
 		p.confirmSeat(confirmationTime, departureTime);
-		// Update of status string for the aircraft (below)
+		seats.add(p);
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
-		// Decrements the countS - polymorhphic
+
+		// Determine passenger type and increment it's fare count
+		if (p instanceof First) {
+			++numFirst;
+		} else if (p instanceof Business) {
+			++numBusiness;
+		} else if (p instanceof Premium) {
+			++numPremium;
+		} else if (p instanceof Economy) {
+			++numEconomy;
+		}
 	}
 	
 	/**
