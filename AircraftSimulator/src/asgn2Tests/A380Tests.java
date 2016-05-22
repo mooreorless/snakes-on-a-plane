@@ -28,10 +28,10 @@ public class A380Tests {
 
 	// Test methods for A380/Aircraft constructor
 	
-	@Test(expected = AircraftException.class)
-	public void InvalidFlightCode() throws AircraftException {
-		A380 testA380 = new A380(null, 2200);
-	}
+//	@Test(expected = AircraftException.class)
+//	public void InvalidFlightCode() throws AircraftException {
+//		A380 testA380 = new A380(null, 2200);
+//	}
 	
 	@Test(expected = AircraftException.class)
 	public void DepartureTimeLessThanZero() throws AircraftException {
@@ -82,10 +82,8 @@ public class A380Tests {
 	@Test
 	public void testUpgrade() throws AircraftException, PassengerException{
 		Economy testPassenger = new Economy(2, 4);
-		String beforeValue = testPassenger.getPassID();
 		testPassenger.upgrade();
-		String afterValue = testPassenger.getPassID();
-		assertFalse(beforeValue, afterValue);
+		Premium testPassenger2 = new Premium(2, 4);
+		assertEquals(testPassenger, testPassenger2);
 	}
-	
 }
