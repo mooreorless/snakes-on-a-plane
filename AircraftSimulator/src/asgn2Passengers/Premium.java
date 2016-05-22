@@ -36,6 +36,7 @@ public class Premium extends Passenger {
 		// Create a new Business passenger with same information
 		Passenger upgradedPassenger = new Business();
 		this.copyPassengerState(upgradedPassenger);
+		upgradedPassenger.passID = "J(U)" + upgradedPassenger.passID;
 		return upgradedPassenger;
 	}
 	
