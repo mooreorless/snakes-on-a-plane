@@ -160,10 +160,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft empty; false otherwise 
 	 */
 	public boolean flightEmpty() {
-		if (this.getNumPassengers() == 0) {
-			return false;
-		}
-		return true;
+		return this.getNumPassengers() == 0;
 	}
 	
 	/**
@@ -174,11 +171,8 @@ public abstract class Aircraft {
 	public boolean flightFull() {
 		int currentCapacity = this.firstCapacity + this.businessCapacity
 			+ this.premiumCapacity + this.economyCapacity;
-
-		if (currentCapacity >= this.capacity) {
-			return true;
-		}
-		return false;
+		
+		return currentCapacity >= this.capacity;
 	}
 	
 	/**
@@ -213,7 +207,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Business Class passengers 
 	 */
 	public int getNumBusiness() {
-
 		return numBusiness;
 	}
 	
@@ -224,7 +217,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Economy Class passengers 
 	 */
 	public int getNumEconomy() {
-
 		return numEconomy;
 	}
 
@@ -234,7 +226,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of First Class passengers 
 	 */
 	public int getNumFirst() {
-
 		return numFirst;
 	}
 
@@ -244,7 +235,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Confirmed passengers 
 	 */
 	public int getNumPassengers() {
-
 		return (numFirst + numBusiness + numPremium + numEconomy);
 	}
 	
@@ -254,7 +244,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Premium Economy Class passengers
 	 */
 	public int getNumPremium() {
-
 		return numPremium;
 	}
 	
@@ -265,9 +254,7 @@ public abstract class Aircraft {
 	 * @return <code>List<Passenger></code> object containing the passengers.  
 	 */
 	public List<Passenger> getPassengers() {
-
-		List<Passenger> copy = new ArrayList<Passenger>();
-		copy.addAll(seats);
+		List<Passenger> copy = new ArrayList<Passenger>(seats);
 		return copy;
 	}
 	
@@ -294,7 +281,6 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if isConfirmed(p); false otherwise 
 	 */
 	public boolean hasPassenger(Passenger p) {
-
 		return p.isConfirmed();
 	}
 	
@@ -320,6 +306,10 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {
+		
+//		System.out.println(p.getPassID().charAt(0));
+//		returns just F, J, P, Y rather than F: etc
+
 
 		if (p instanceof First) {
 			if (firstCapacity - numFirst == 0) {

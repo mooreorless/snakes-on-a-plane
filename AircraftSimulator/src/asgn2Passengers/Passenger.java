@@ -423,11 +423,14 @@ public abstract class Passenger {
 		int minConfirmationTime = 0;
 		
 		// if confirmation time was ever set, return true. Otherwise return false.
-		if(this.confirmationTime > minConfirmationTime){
-			return true;
-		} else {
-			return false;
-		}
+//		if(this.confirmationTime > minConfirmationTime){
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
+		// My tutor made this suggestion for simple boolean returns
+		return this.confirmationTime > minConfirmationTime;
 	}
 
 	/**
@@ -440,11 +443,12 @@ public abstract class Passenger {
 		int minQueueTime = 0;
 		
 		// if the enter queue time was ever set, return true. Otherwise return false.
-		if(this.enterQueueTime > minQueueTime){
-			return true;
-		} else {
-			return false;
-		}
+//		if(this.enterQueueTime > minQueueTime){
+//			return true;
+//		} else {
+//			return false;
+//		}
+		return this.enterQueueTime > minQueueTime;
 	}
 	
 	/**
