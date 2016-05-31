@@ -73,6 +73,7 @@ public abstract class Aircraft {
 		this.premiumCapacity = premium;
 		this.economyCapacity = economy;
 		this.status = "";
+		this.seats = new ArrayList<Passenger>();
 
 		if ( flightCode.isEmpty() || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
 			throw new AircraftException("Flight code null, departureTime invalid, invalid num of passengers");
