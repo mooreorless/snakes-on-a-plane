@@ -73,6 +73,7 @@ public abstract class Aircraft {
 		this.premiumCapacity = premium;
 		this.economyCapacity = economy;
 		this.status = "";
+		this.seats = new ArrayList<Passenger>();
 
 		if ( flightCode.isEmpty() || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
 			throw new AircraftException("Flight code null, departureTime invalid, invalid num of passengers");
@@ -90,6 +91,7 @@ public abstract class Aircraft {
 	 * @throws AircraftException if <code>Passenger</code> is not recorded in aircraft seating 
 	 */
 	public void cancelBooking(Passenger p, int cancellationTime) throws PassengerException, AircraftException {
+
 		if (!hasPassenger(p)) {
 			throw new AircraftException("Passenger not recorded on flight");
 		}
@@ -160,6 +162,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft empty; false otherwise 
 	 */
 	public boolean flightEmpty() {
+
 		return this.getNumPassengers() == 0;
 	}
 	
@@ -169,8 +172,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft full; false otherwise 
 	 */
 	public boolean flightFull() {
-		int currentCapacity = this.firstCapacity + this.businessCapacity
-			+ this.premiumCapacity + this.economyCapacity;
+		int currentCapacity = this.getNumPassengers();
 		
 		return currentCapacity >= this.capacity;
 	}
@@ -207,6 +209,7 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Business Class passengers 
 	 */
 	public int getNumBusiness() {
+
 		return numBusiness;
 	}
 	
@@ -217,6 +220,7 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Economy Class passengers 
 	 */
 	public int getNumEconomy() {
+
 		return numEconomy;
 	}
 
@@ -226,6 +230,7 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of First Class passengers 
 	 */
 	public int getNumFirst() {
+
 		return numFirst;
 	}
 
@@ -235,6 +240,7 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Confirmed passengers 
 	 */
 	public int getNumPassengers() {
+
 		return (numFirst + numBusiness + numPremium + numEconomy);
 	}
 	
@@ -244,6 +250,7 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Premium Economy Class passengers
 	 */
 	public int getNumPremium() {
+
 		return numPremium;
 	}
 	
@@ -281,6 +288,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if isConfirmed(p); false otherwise 
 	 */
 	public boolean hasPassenger(Passenger p) {
+
 		return p.isConfirmed();
 	}
 	

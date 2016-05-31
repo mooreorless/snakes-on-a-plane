@@ -30,6 +30,11 @@ public class FirstTests {
 		Passenger p = new First(-1, 2);
 		
 	}
+
+	@Test(expected = PassengerException.class)
+	public void testCancelSeat() throws PassengerException {
+		//TODO
+	}
 	
 	@Test
 	public void testNoSeatsMsg() {
