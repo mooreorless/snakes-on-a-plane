@@ -210,6 +210,7 @@ public abstract class Passenger {
 	 * @return the bookingTime
 	 */
 	public int getBookingTime() {
+
 		return bookingTime;
 	}
 
@@ -220,6 +221,7 @@ public abstract class Passenger {
 	 * @return the confirmationTime
 	 */
 	public int getConfirmationTime() {
+
 		return confirmationTime;
 	}
 
@@ -229,6 +231,7 @@ public abstract class Passenger {
 	 * @return the departureTime
 	 */
 	public int getDepartureTime() {
+
 		return departureTime;
 	}
 	
@@ -238,6 +241,7 @@ public abstract class Passenger {
 	 * @return the enterQueueTime
 	 */
 	public int getEnterQueueTime() {
+
 		return enterQueueTime;
 	}
 
@@ -247,6 +251,7 @@ public abstract class Passenger {
 	 * @return the exitQueueTime
 	 */
 	public int getExitQueueTime() {
+
 		return exitQueueTime;
 	}
 
@@ -256,6 +261,7 @@ public abstract class Passenger {
 	 * @return the passID
 	 */
 	public String getPassID() {
+
 		return passID;
 	}
 
@@ -265,6 +271,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Confirmed state; false otherwise 
 	 */
 	public boolean isConfirmed() {
+
 		return this.confirmed;
 	}
 		
@@ -274,6 +281,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Flown state; false otherwise 
 	 */
 	public boolean isFlown() {
+
 		return this.flown;
 	}
 	
@@ -283,6 +291,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if New state; false otherwise 
 	 */
 	public boolean isNew() {
+
 		return this.newState;
 	}
 
@@ -292,6 +301,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Queued state; false otherwise 
 	 */
 	public boolean isQueued() {
+
 		return this.inQueue;
 	}
 	
@@ -301,6 +311,7 @@ public abstract class Passenger {
 	 * @return <code>boolean</code> true if Refused state; false otherwise 
 	 */
 	public boolean isRefused() {
+
 		return this.refused;
 	}
 	
@@ -421,14 +432,6 @@ public abstract class Passenger {
 	public boolean wasConfirmed() {
 		
 		int minConfirmationTime = 0;
-		
-		// if confirmation time was ever set, return true. Otherwise return false.
-//		if(this.confirmationTime > minConfirmationTime){
-//			return true;
-//		} else {
-//			return false;
-//		}
-		
 		// My tutor made this suggestion for simple boolean returns
 		return this.confirmationTime > minConfirmationTime;
 	}
@@ -441,13 +444,7 @@ public abstract class Passenger {
 	public boolean wasQueued() {
 		
 		int minQueueTime = 0;
-		
-		// if the enter queue time was ever set, return true. Otherwise return false.
-//		if(this.enterQueueTime > minQueueTime){
-//			return true;
-//		} else {
-//			return false;
-//		}
+
 		return this.enterQueueTime > minQueueTime;
 	}
 	
