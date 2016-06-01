@@ -77,13 +77,19 @@ public abstract class Passenger {
 		this.departureTime = departureTime;
 		this.passID = "" + Passenger.index;
 		Passenger.index++;
+
+		this.newState = true;
+		this.confirmed = false;
+		this.inQueue = false;
+		this.flown = false;
+		this.refused = false;
 		
 		//Check for an exception
-		if(bookingTime < 0){
+		if (bookingTime < 0) {
 			throw new PassengerException("Booking time must be greater than 0");
-		} else if(departureTime < 0){
+		} else if (departureTime < 0) {
 			throw new PassengerException("Departure time must be greater than 0");
-		} else if(departureTime < bookingTime){
+		} else if (departureTime < bookingTime) {
 			throw new PassengerException("Departure time must not be before booking time");
 		} else {
 			//do nothing
@@ -120,9 +126,9 @@ public abstract class Passenger {
 		int invalidCancellationTime = 0;
 		
 		// Check for an exception
-		if(this.isNew() || this.isQueued() || this.isRefused() || this.isFlown()){
+		if (this.isNew() || this.isQueued() || this.isRefused() || this.isFlown()) {
 			throw new PassengerException("Passenger's current state is invalid");
-		} else if(cancellationTime < invalidCancellationTime || departureTime < cancellationTime){
+		} else if (cancellationTime < invalidCancellationTime || departureTime < cancellationTime) {
 			throw new PassengerException("Cancellation time is less than 0 or Departure time is less than cancellation time");
 		}// End if
 		
@@ -145,7 +151,7 @@ public abstract class Passenger {
 	 * </ul>
 	 * 
 	 * @param confirmationTime <code>int</code> day when seat is confirmed
-	 * @param departureTime <code>int</code> day flight is scheduled to depart 
+	 * @param departureTime <code>int</code> day flight is scheduled to depart 3
 	 * @throws PassengerException if isConfirmed(this) OR isRefused(this) OR isFlown(this)
 	 * 		   OR (confirmationTime < 0) OR (departureTime < confirmationTime)
 	 */
@@ -154,9 +160,9 @@ public abstract class Passenger {
 		int invalidConfirmationTime = 0;
 		
 		// Check for an exception
-		if(this.isConfirmed() || this.isRefused() || this.isFlown()){
+		if (this.isConfirmed() || this.isRefused() || this.isFlown()) {
 			throw new PassengerException("Passenger's current state is invalid");
-		} else if(confirmationTime < invalidConfirmationTime || departureTime < confirmationTime){
+		} else if (confirmationTime < invalidConfirmationTime || departureTime < confirmationTime) {
 			throw new PassengerException("Confirmation time is less than 0 or Departure time is less than confirmation time");
 		}// End if
 		
@@ -166,7 +172,7 @@ public abstract class Passenger {
 		this.inQueue = false;
 		
 		// If passenger was in the queue, their confirmation time becomes their exit time
-		if(this.isQueued()){
+		if (this.isQueued()) {
 			this.exitQueueTime = confirmationTime;
 		}
 		
@@ -192,9 +198,9 @@ public abstract class Passenger {
 		int invalidDepartureTime = 0;
 
 		// Check for an exception
-		if(this.isNew() || this.isQueued() || this.isRefused() || this.isFlown()){
+		if (this.isNew() || this.isQueued() || this.isRefused() || this.isFlown()) {
 			throw new PassengerException("Passenger's current state is invalid");
-		} else if(departureTime <= invalidDepartureTime){
+		} else if (departureTime <= invalidDepartureTime) {
 			throw new PassengerException("Departure time is less than or equal to 0");
 		}// End if
 
@@ -344,9 +350,9 @@ public abstract class Passenger {
 		int invalidQueueTime = 0;
 		
 		// Check for an exception
-		if(this.isQueued() || this.isConfirmed() ||  this.isRefused() || this.isFlown()){
+		if (this.isQueued() || this.isConfirmed() ||  this.isRefused() || this.isFlown()) {
 			throw new PassengerException("Passenger's current state is invalid");
-		} else if(queueTime < invalidQueueTime || departureTime < queueTime){
+		} else if (queueTime < invalidQueueTime || departureTime < queueTime) {
 			throw new PassengerException("Queue time is less than 0 or Departure time is less than Queue time");
 		}
 		
@@ -376,9 +382,9 @@ public abstract class Passenger {
 		int invalidRefusalTime = 0;
 		
 		// Check for an exception
-		if(this.isConfirmed() ||  this.isRefused() || this.isFlown()){
+		if (this.isConfirmed() ||  this.isRefused() || this.isFlown()) {
 			throw new PassengerException("Passenger's current state is invalid");
-		} else if(refusalTime < invalidRefusalTime || refusalTime < bookingTime){
+		} else if (refusalTime < invalidRefusalTime || refusalTime < bookingTime) {
 			throw new PassengerException("Refusal time is less than 0 or Refusal time is less than Booking time");
 		}
 		

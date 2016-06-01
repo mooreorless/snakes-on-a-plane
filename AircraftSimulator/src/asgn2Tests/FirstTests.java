@@ -31,165 +31,435 @@ public class FirstTests {
 
 	@Test(expected = PassengerException.class)
 	public void testBookingTimeLessThanZero() throws PassengerException {
-		Passenger p = new First(-1, 2);
+		int bookingTime = -1;
+		int departureTime = 2;
+
+		Passenger p = new First(bookingTime, departureTime);
 		
 	}
 
-	//Cancel Seat Tests
+	@Test(expected = PassengerException.class)
+	public void testDepartureTimeLessThanZero() throws PassengerException {
+		int bookingTime = 2200;
+		int departureTime = -1;
+
+		Passenger p = new First(bookingTime, departureTime);
+
+	}
+
+	@Test(expected = PassengerException.class)
+	public void testDepartureTimeBeforeBookingTime() throws PassengerException {
+		int bookingTime = 2200;
+		int departureTime = 1800;
+
+		Passenger p = new First(bookingTime, departureTime);
+
+	}
+
+	// Cancel Seat Tests
+
+	@Test
+	public void testPassengerCancelSeatNormal() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int cancellationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(1000, 2000);
+		p.cancelSeat(cancellationTime);
+
+		assertFalse(p.isConfirmed());
+	}
 
 	@Test(expected = PassengerException.class)
 	public void testCancelSeatCancellationTimeLessThanZero() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int cancellationTime = -1;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.cancelSeat(cancellationTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testCancelSeatDepartureTimeLessThanCancelTime() throws PassengerException {
-		//TODO
+	public void testCancelSeatDepartureTimeLessThanCancellationTime() throws PassengerException {
+
+		int bookingTime = 1;
+		int departureTime = 2;
+		int cancellationTime = 3;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.cancelSeat(cancellationTime);
+	}
+
+	@Test
+	public void testPassengerCancelSeatBookingTimeEqualsCancellationTime() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int cancellationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(1000, 2000);
+		p.cancelSeat(cancellationTime);
+
+		assertEquals(bookingTime, cancellationTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testCancelSeatWhenPassengerIsNew() throws PassengerException {
-		//TODO
-	}
+	public void testCancelSeatPassengerIsNew() throws PassengerException {
 
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int cancellationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
 
-	@Test(expected = PassengerException.class)
-	public void testCancelSeatWhenPassengerIsQueued() throws PassengerException {
-		//TODO
-	}
-
-
-	@Test(expected = PassengerException.class)
-	public void testCancelSeatWhenPassengerIsRefused() throws PassengerException {
-		//TODO
+		p.cancelSeat(cancellationTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testCancelSeatWhenPassengerIsFlown() throws PassengerException {
-		//TODO
+	public void testCancelSeatPassengerIsQueued() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 1000;
+		int cancellationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.queuePassenger(queueTime, departureTime);
+		p.cancelSeat(cancellationTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testCancelSeatPassengerNewState() throws PassengerException {
-		//TODO
+	public void testCancelSeatPassengerIsRefused() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int refusalTime = 1000;
+		int cancellationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(refusalTime);
+		p.cancelSeat(cancellationTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testCancelSeatPassengerConfirmedState() throws PassengerException {
-		//TODO
+	public void testCancelSeatPassengerIsFlown() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int cancellationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.flyPassenger(departureTime);
+		p.cancelSeat(cancellationTime);
 	}
 
-	@Test(expected = PassengerException.class)
-	public void testCancelSeatBookingTimeEqualsCancellationTime() throws PassengerException {
-		//TODO
-	}
+	// Confirm Seat Methods
 
 	@Test(expected = PassengerException.class)
-	public void testConfirmSeatConfirmTimeLessThanZero() throws PassengerException {
-		//TODO
+	public void testConfirmSeatDepartureTimeLessThanZero() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int confirmationTime = -1;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(confirmationTime, departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testConfirmSeatDepartureTimeLessThanConfirmationTime() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int confirmationTime = 3000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(confirmationTime, departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testConfirmSeatWhenPassengerIsConfirmed() throws PassengerException {
-		//TODO
+	public void testConfirmSeatPassengerIsConfirmedTwice() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(confirmationTime, departureTime);
+		p.confirmSeat(confirmationTime, departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testConfirmSeatWhenPassengerIsRefused() throws PassengerException {
-		//TODO
+	public void testConfirmSeatPassengerIsRefused() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int refusalTime = 1000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(refusalTime);
+		p.confirmSeat(confirmationTime, departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testConfirmSeatWhenPassengerIsFlown() throws PassengerException {
-		//TODO
+	public void testConfirmSeatPassengerIsFlown() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.flyPassenger(departureTime);
+		p.confirmSeat(confirmationTime, departureTime);
+	}
+
+	// Passenger State Transitions
+
+	@Test
+	public void testPassengerIsNew() throws PassengerException {
+
+		Passenger p = new First(1000, 2000);
+		assertTrue(p.isNew());
+	}
+
+	@Test
+	public void testPassengerIsQueued() throws PassengerException {
+
+		Passenger p = new First(1000, 2000);
+		p.queuePassenger(1000, 2000);
+		assertTrue(p.isQueued());
+	}
+
+	@Test
+	public void testPassengerIsRefused() throws PassengerException {
+
+		Passenger p = new First(1000, 2000);
+		p.refusePassenger(1500);
+		assertTrue(p.isRefused());
+	}
+
+	@Test(expected = PassengerException.class)
+	public void testPassengerIsFlown() throws PassengerException {
+
+		Passenger p = new First(1000, 2000);
+		p.flyPassenger(2000);
+		assertTrue(p.isFlown());
+	}
+
+	@Test
+	public void testPassengerIsConfirmed() throws PassengerException {
+
+		Passenger p = new First(1000, 2000);
+		p.confirmSeat(1000, 2000);
+		assertTrue(p.isConfirmed());
 	}
 
 	//Fly Passenger
 
 	@Test(expected = PassengerException.class)
 	public void testFlyPassengerInvalidDepartureTime() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int invalidDepartureTime = -1;
+		Passenger p = new First(bookingTime, invalidDepartureTime);
+
+		p.flyPassenger(invalidDepartureTime);
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testFlyPassengerIsNewState() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.flyPassenger(departureTime);
+		//assertFalse(p.isNew());
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testFlyPassengerIsQueuedState() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.queuePassenger(1500, 2000);
+		p.flyPassenger(departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testFlyPassengerIsRefusedState() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(1000);
+		p.flyPassenger(departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testFlyPassengerIsFlownState() throws PassengerException {
-		//TODO
+	public void testFlyPassengerFlyTwice() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		Passenger p	= new First(bookingTime, departureTime);
+
+		p.flyPassenger(departureTime);
+		p.flyPassenger(departureTime);
 	}
 
 	//Queue Passenger
 
 	@Test(expected = PassengerException.class)
-	public void testQueuePassengerInvalidQueueTime() throws PassengerException {
-		//TODO
+	public void testQueuePassengerQueueTimeLessThanZero() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = -1;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.queuePassenger(queueTime, departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testQueuePassengerIsQueuedState() throws PassengerException {
-		//TODO
+	public void testQueuePassengerDepartureTimeLessThanQueueTime() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 2100;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.queuePassenger(queueTime, departureTime);
+	}
+
+	@Test(expected = PassengerException.class)
+	public void testQueuePassengerIsQueuedTwice() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.queuePassenger(queueTime, departureTime);
+		p.queuePassenger(queueTime, departureTime);
+		//p.wasQueued();
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testQueuePassengerIsConfirmedState() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 1000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(confirmationTime, departureTime);
+		p.queuePassenger(queueTime, departureTime);
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testQueuePassengerIsRefusedState() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 1000;
+		int refusalTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(refusalTime);
+		p.queuePassenger(queueTime, departureTime);
 	}
 
-	//State variables which are set in the fly,refuse,queue etc
-//
-//	@Test(expected = PassengerException.class)
-//	public void testQueuePassengerIfInQueue() throws PassengerException {
-//		//TODO
-//	}
+	@Test(expected = PassengerException.class)
+	public void testQueuePassengerIsFlownState() throws PassengerException {
 
-//	@Test(expected = PassengerException.class)
-//	public void testQueuePassengerEnterQueueTime() throws PassengerException {
-//		//TODO
-//	}
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 1000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
 
+		p.confirmSeat(confirmationTime, departureTime);
+		p.flyPassenger(departureTime);
+		p.queuePassenger(queueTime, departureTime);
+	}
 
-	//Refuse Passenger
+	// Refuse Passenger
 
 	@Test(expected = PassengerException.class)
 	public void testRefusePassengerRefusalTimeLessThanZero() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int refusalTime = -1;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(refusalTime);
+	}
+
+	@Test(expected = PassengerException.class)
+	public void testRefusePassengerRefusalTimeLessThanBookingTime() throws PassengerException {
+
+		int bookingTime = 2000;
+		int departureTime = 4000;
+		int refusalTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(refusalTime);
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testRefusePassengerIsConfirmedState() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int refusalTime = 1000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(confirmationTime, departureTime);
+		p.refusePassenger(refusalTime);
 	}
 
 	@Test(expected = PassengerException.class)
-	public void testRefusePassengerIsRefusedState() throws PassengerException {
-		//TODO
+	public void testRefusePassengerIsRefusedTwice() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int refusalTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.refusePassenger(refusalTime);
+		p.refusePassenger(refusalTime);
 	}
 
 	@Test(expected = PassengerException.class)
 	public void testRefusePassengerIsFlownState() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int refusalTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.flyPassenger(departureTime);
+		p.refusePassenger(refusalTime);
+	}
+
+	@Test
+	public void testWasConfired() throws PassengerException {
+		//TODO
+	}
+
+	@Test
+	public void testWasQueued() throws PassengerException {
 		//TODO
 	}
 
