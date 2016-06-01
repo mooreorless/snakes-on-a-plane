@@ -174,7 +174,6 @@ public abstract class Aircraft {
 	 */
 	public boolean flightFull() {
 		int currentCapacity = this.getNumPassengers();
-		
 		return currentCapacity >= this.capacity;
 	}
 	
@@ -377,34 +376,43 @@ public abstract class Aircraft {
 	 */
 	public void upgradeBookings() {
 
-		for (Passenger p : seats) {
-			if (p instanceof First) {
-				if (seatsAvailable(p)) {
-					for (Passenger x : seats) {
-						if (x instanceof Business) {
-							seats.remove(x);
-							x.upgrade();
-							seats.add(x);
+		// Loop through all passengers (i)
+		for (int i = 0; i < seats.size(); i++) {
+			// If the passenger is first class & if there are seats available in first
+			if (seats.get(i) instanceof First) {
+				if (seatsAvailable(seats.get(i))) {
+					// Loop through all passengers again and if they're a business passenger, begin upgrade process
+					for(int j = 0; j < seats.size(); j++){
+						if (seats.get(j) instanceof Business) {
+							// if there are still seats available in first
+							if(seatsAvailable(seats.get(i))){
+								First upgradedBusinessPassenger = (First) seats.get(j).upgrade();
+								// Remove old business passenger, add in new upgraded business passenger & update counts
+								seats.remove(seats.get(j));
+								numBusiness--;
+								seats.add(upgradedBusinessPassenger);
+								numFirst++;
+							}
 						}
 					}
 				}
-			} else if (p instanceof Business) {
-				if (seatsAvailable(p)) {
-					for (Passenger x : seats) {
-						if (x instanceof Premium) {
-							seats.remove(x);
-							x.upgrade();
-							seats.add(x);
+			} else if (seats.get(i) instanceof Business) {
+				if (seatsAvailable(seats.get(i))) {
+					for (int j = 0; j < seats.size(); j++) {
+						if (seats.get(j) instanceof Premium) {
+							Business upgradedPremiumPassenger = (Business) seats.get(j).upgrade();
+							seats.remove(seats.get(j));
+							seats.add(upgradedPremiumPassenger);
 						}
 					}
 				}
-			} else if (p instanceof Premium) {
-				if (seatsAvailable(p)) {
-					for (Passenger x : seats) {
-						if (x instanceof Economy) {
-							seats.remove(x);
-							x.upgrade();
-							seats.add(x);
+			} else if (seats.get(i) instanceof Premium) {
+				if (seatsAvailable(seats.get(i))) {
+					for (int j = 0; j < seats.size(); j++) {
+						if (seats.get(j) instanceof Economy) {
+							Premium upgradedEconomyPassenger = (Premium) seats.get(j).upgrade();
+							seats.remove(seats.get(j));
+							seats.add(upgradedEconomyPassenger);
 						}
 					}
 				}
