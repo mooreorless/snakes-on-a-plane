@@ -123,7 +123,7 @@ public class SimulationRunner {
 		this.log.initialEntry(this.sim);
 		
 		//Main simulation loop 
-		for (int time=0; time<=Constants.DURATION; time++) {
+		for (int time = 0; time <= Constants.DURATION; time++) {
 			this.sim.resetStatus(time); 
 			this.sim.rebookCancelledPassengers(time); 
 			this.sim.generateAndHandleBookings(time);

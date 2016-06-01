@@ -67,7 +67,7 @@ public class Flights {
 	 * @throws PassengerException See {@link asgn2Aircraft.Aircraft#cancelBooking(Passenger, int)}
 	 * @throws AircraftException See {@link asgn2Aircraft.Aircraft#cancelBooking(Passenger, int)}
 	 */
-	public List<Passenger> cancelBookings(Random rng,double cancelProb,int cancelTime) throws PassengerException, AircraftException {
+	public List<Passenger> cancelBookings(Random rng, double cancelProb, int cancelTime) throws PassengerException, AircraftException {
 		List<Passenger> cancelled = new ArrayList<Passenger>(); 
 		for (Aircraft a : this.daily) {
 			List<Passenger> passengers =  a.getPassengers();
@@ -170,12 +170,14 @@ public class Flights {
 	 *  Passengers are upgraded solely within their original aircraft. We do 
 	 *  not move passengers between flights in the schedule. 
 	 */
+
 	public void upgradePassengers() {
 		for (Aircraft a : this.daily) {
 			a.upgradeBookings();
 		}
-		
 	}
+
+
 
 	/**
 	 * Helper to create schedule 
@@ -196,7 +198,7 @@ public class Flights {
 	 * Helper to total passenger counts across all aircraft in the schedule 
 	 */
 	private void totalFlightCounts() {
-		this.counts = new Bookings(0,0,0,0,0,0);
+		this.counts = new Bookings(0, 0, 0, 0, 0, 0);
 		for (Aircraft a : this.daily) {
 			Bookings b = a.getBookings();
 			int first = this.counts.getNumFirst();
