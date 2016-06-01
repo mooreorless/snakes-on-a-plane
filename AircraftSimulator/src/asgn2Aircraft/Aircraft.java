@@ -103,13 +103,13 @@ public abstract class Aircraft {
 
 		// Determine passenger type and decrement it's fare count
 		if (p instanceof First) {
-			--numFirst;
+			numFirst--;
 		} else if (p instanceof Business) {
-			--numBusiness;
+			numBusiness--;
 		} else if (p instanceof Premium) {
-			--numPremium;
+			numPremium--;
 		} else if (p instanceof Economy) {
-			--numEconomy;
+			numEconomy--;
 		}
 	}
 
@@ -315,9 +315,6 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {
-		
-//		System.out.println(p.getPassID().charAt(0));
-//		returns just F, J, P, Y rather than F: etc
 
 			switch(p.getPassID().charAt(0)) {
 				case 'F':
@@ -331,36 +328,6 @@ public abstract class Aircraft {
 				default:
 					return false;
 			}
-
-//		if (p instanceof First) {
-//			if (firstCapacity - numFirst > 0) {
-//				noSeatsAvailableMsg(p);
-//			} else {
-//				return true;
-//			}
-//		}
-//		if (p instanceof Business) {
-//			if (businessCapacity - numBusiness == 0) {
-//				noSeatsAvailableMsg(p);
-//			} else {
-//				return true;
-//			}
-//		}
-//		if (p instanceof Premium) {
-//			if (premiumCapacity - numPremium == 0) {
-//				noSeatsAvailableMsg(p);
-//			} else {
-//				return true;
-//			}
-//		}
-//		if (p instanceof Economy) {
-//			if (economyCapacity - numEconomy == 0) {
-//				noSeatsAvailableMsg(p);
-//			} else {
-//				return true;
-//			}
-//		}
-//		return false;
 	}
 
 	/* 

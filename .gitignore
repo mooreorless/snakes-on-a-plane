@@ -48,7 +48,7 @@ Temporary Items
 .idea/jsLibraryMappings.xml
 .idea/
 AircraftSimulator/AircraftSimulator.iml
-
+resources/Thumbs.db
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
