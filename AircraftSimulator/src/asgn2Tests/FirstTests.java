@@ -1,5 +1,6 @@
 /**
- * 
+ * This file includes the test cases for First Class passenger
+ * through the Passenger interface.
  */
 package asgn2Tests;
 
@@ -194,36 +195,43 @@ public class FirstTests {
 
 	@Test
 	public void testNoSeatsMsg() {
+
 		assertTrue(true);
 	}
 	
 	@Test
 	public void testGetBookingTimeDontTest() {
+
 		assertTrue(true);
 	}
 	
 	@Test
 	public void testGetConfirmationTimeDontTest() {
+
 		assertTrue(true);
 	}
 	
 	@Test
 	public void testGetDepartureTimeDontTest() {
+
 		assertTrue(true);
 	}
 	
 	@Test
 	public void testGetEnterQueueTimeDontTest() {
+
 		assertTrue(true);
 	}
 	
 	@Test
 	public void testGetExitQueueTimeDontTest() {
+
 		assertTrue(true);
 	}
 	
 	@Test
 	public void testGetPassIdDontTest() {
+
 		assertTrue(true);
 	}
 }
