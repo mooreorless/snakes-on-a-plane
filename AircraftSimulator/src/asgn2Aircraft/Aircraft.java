@@ -72,6 +72,7 @@ public abstract class Aircraft {
 		this.businessCapacity = business;
 		this.premiumCapacity = premium;
 		this.economyCapacity = economy;
+		this.flightCode = flightCode;
 		this.capacity = first + business + premium + economy;
 		this.status = "";
 		this.seats = new ArrayList<Passenger>();
@@ -134,13 +135,13 @@ public abstract class Aircraft {
 
 		// Determine passenger type and increment it's fare count
 		if (p instanceof First) {
-			++numFirst;
+			numFirst++;
 		} else if (p instanceof Business) {
-			++numBusiness;
+			numBusiness++;
 		} else if (p instanceof Premium) {
-			++numPremium;
+			numPremium++;
 		} else if (p instanceof Economy) {
-			++numEconomy;
+			numEconomy++;
 		}
 	}
 	
@@ -318,36 +319,48 @@ public abstract class Aircraft {
 //		System.out.println(p.getPassID().charAt(0));
 //		returns just F, J, P, Y rather than F: etc
 
+			switch(p.getPassID().charAt(0)) {
+				case 'F':
+					return ((firstCapacity - numFirst) > 0);
+				case 'J':
+					return ((businessCapacity - numBusiness) > 0);
+				case 'P':
+					return ((premiumCapacity - numPremium) > 0);
+				case 'Y':
+					return ((economyCapacity - numEconomy) > 0);
+				default:
+					return false;
+			}
 
-		if (p instanceof First) {
-			if (firstCapacity - numFirst == 0) {
-				noSeatsAvailableMsg(p);
-			} else {
-				return true;
-			}
-		}
-		if (p instanceof Business) {
-			if (businessCapacity - numBusiness == 0) {
-				noSeatsAvailableMsg(p);
-			} else {
-				return true;
-			}
-		}
-		if (p instanceof Premium) {
-			if (premiumCapacity - numPremium == 0) {
-				noSeatsAvailableMsg(p);
-			} else {
-				return true;
-			}
-		}
-		if (p instanceof Economy) {
-			if (economyCapacity - numEconomy == 0) {
-				noSeatsAvailableMsg(p);
-			} else {
-				return true;
-			}
-		}
-		return false;
+//		if (p instanceof First) {
+//			if (firstCapacity - numFirst > 0) {
+//				noSeatsAvailableMsg(p);
+//			} else {
+//				return true;
+//			}
+//		}
+//		if (p instanceof Business) {
+//			if (businessCapacity - numBusiness == 0) {
+//				noSeatsAvailableMsg(p);
+//			} else {
+//				return true;
+//			}
+//		}
+//		if (p instanceof Premium) {
+//			if (premiumCapacity - numPremium == 0) {
+//				noSeatsAvailableMsg(p);
+//			} else {
+//				return true;
+//			}
+//		}
+//		if (p instanceof Economy) {
+//			if (economyCapacity - numEconomy == 0) {
+//				noSeatsAvailableMsg(p);
+//			} else {
+//				return true;
+//			}
+//		}
+//		return false;
 	}
 
 	/* 
@@ -378,7 +391,7 @@ public abstract class Aircraft {
 
 		// Loop through all passengers (i)
 		for (int i = 0; i < seats.size(); i++) {
-			
+
 			// If the passenger is first class & if there are seats available in first
 			if (seats.get(i) instanceof First) {
 				if (seatsAvailable(seats.get(i))) {
@@ -406,7 +419,7 @@ public abstract class Aircraft {
 								seats.remove(seats.get(j));
 								numPremium--;
 								seats.add(upgradedPremiumPassenger);
-								numBusiness++;	
+								numBusiness++;
 							}
 						}
 					}
@@ -426,9 +439,9 @@ public abstract class Aircraft {
 					}
 				}
 			}
-			
+
 		}// End for
-		
+
 	}// End function
 
 	/**

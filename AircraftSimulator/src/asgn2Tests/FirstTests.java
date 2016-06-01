@@ -505,7 +505,11 @@ public class FirstTests {
 		Passenger business = new Business(bookingTime, departureTime);
 		Passenger upgraded = new First(bookingTime, departureTime);
 
-		assertNotSame(business, upgraded);
+		business.upgrade();
+
+		//check that assert is upgraded
+
+	//	assertNotSame(business, upgraded);
 	}
 
 	@Test
