@@ -378,6 +378,7 @@ public abstract class Aircraft {
 
 		// Loop through all passengers (i)
 		for (int i = 0; i < seats.size(); i++) {
+			
 			// If the passenger is first class & if there are seats available in first
 			if (seats.get(i) instanceof First) {
 				if (seatsAvailable(seats.get(i))) {
@@ -400,9 +401,13 @@ public abstract class Aircraft {
 				if (seatsAvailable(seats.get(i))) {
 					for (int j = 0; j < seats.size(); j++) {
 						if (seats.get(j) instanceof Premium) {
-							Business upgradedPremiumPassenger = (Business) seats.get(j).upgrade();
-							seats.remove(seats.get(j));
-							seats.add(upgradedPremiumPassenger);
+							if(seatsAvailable(seats.get(i))){
+								Business upgradedPremiumPassenger = (Business) seats.get(j).upgrade();
+								seats.remove(seats.get(j));
+								numPremium--;
+								seats.add(upgradedPremiumPassenger);
+								numBusiness++;	
+							}
 						}
 					}
 				}
@@ -410,15 +415,21 @@ public abstract class Aircraft {
 				if (seatsAvailable(seats.get(i))) {
 					for (int j = 0; j < seats.size(); j++) {
 						if (seats.get(j) instanceof Economy) {
-							Premium upgradedEconomyPassenger = (Premium) seats.get(j).upgrade();
-							seats.remove(seats.get(j));
-							seats.add(upgradedEconomyPassenger);
+							if(seatsAvailable(seats.get(i))){
+								Premium upgradedEconomyPassenger = (Premium) seats.get(j).upgrade();
+								seats.remove(seats.get(j));
+								numEconomy--;
+								seats.add(upgradedEconomyPassenger);
+								numPremium++;
+							}
 						}
 					}
 				}
 			}
-		}
-	}
+			
+		}// End for
+		
+	}// End function
 
 	/**
 	 * Simple String method for the Aircraft ID 

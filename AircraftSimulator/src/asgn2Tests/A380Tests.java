@@ -433,6 +433,7 @@ public class A380Tests {
 	
 	@Test
 	public void SeatsAvailableInEconomyClassTest() throws AircraftException, PassengerException {
+		
 		A380 testA380 = new A380("Flight 117", 2200);
 		Economy testPassenger = new Economy(1200, 2200);
 		testA380.confirmBooking(testPassenger, 1500);
@@ -456,10 +457,10 @@ public class A380Tests {
 	@Test
 	public void SeatsAvailableInEconomyClassBoundaryTest() throws AircraftException, PassengerException {
 		
-		int numOfEconomySeats = 371;
+		int numOfEconomySeats = 370;
 		
 		A380 testA380 = new A380("Flight 117", 2200);
-		for(int i = 0; i < (numOfEconomySeats) - 1; i++){
+		for(int i = 0; i < numOfEconomySeats; i++){
 			Economy testPassenger = new Economy(1200, 2200);
 			testA380.confirmBooking(testPassenger, 1500);
 		}
@@ -467,36 +468,168 @@ public class A380Tests {
 		assertTrue(testA380.seatsAvailable(testPassenger));
 	}
 	
-	// Test methods for upgrades
+	// Test methods for upgradeBooking
 	
 	@Test
 	public void BusinessToFirstUpgradeTest() throws AircraftException, PassengerException {
 		
-		int FIRST = 10;
-		int BUSINESS = 64;
+		int first = 10;
+		int business = 64;
 		
 		A380 testA380 = new A380("Flight 117", 2200);
 		
 		//Populate flight classes with some (non-full) values
 			// Populate First class
-			for(int i = 0; i < FIRST; i++){
+			for(int i = 0; i < first; i++){
 				First testPassenger = new First(1200, 2200);
 				testA380.confirmBooking(testPassenger, 1500);
 			}
 			// Populate entire Business class
-			for(int i = 0; i < BUSINESS; i++){
+			for(int i = 0; i < business; i++){
 				Business testPassenger = new Business(1200, 2200);
 				testA380.confirmBooking(testPassenger, 1500);
 			}
+			
 		testA380.upgradeBookings();
 		assertEquals(14, testA380.getNumFirst());
+		assertEquals(60, testA380.getNumBusiness());
 	}
 	
-//	@Test
-//	public void testUpgrade() throws AircraftException, PassengerException{
-//		Economy testPassenger = new Economy(2, 4);
-//		testPassenger.upgrade();
-//		Premium testPassenger2 = new Premium(2, 4);
-//		assertEquals(testPassenger, testPassenger2);
-//	}
+	@Test
+	public void PremiumToBusinessUpgradeTest() throws AircraftException, PassengerException {
+		
+		int business = 60;
+		int premium = 35; 
+		
+		A380 testA380 = new A380("Flight 117", 2200);
+		
+		//Populate flight classes with some (non-full) values
+			// Populate Business class
+			for(int i = 0; i < business; i++){
+				Business testPassenger = new Business(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Entire Premium class
+			for(int i = 0; i < premium; i++){
+				Premium testPassenger = new Premium(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			
+		testA380.upgradeBookings();
+		assertEquals(64, testA380.getNumBusiness());
+		assertEquals(31, testA380.getNumPremium());
+	}
+	
+	@Test
+	public void EconomyToPremiumUpgradeTest() throws AircraftException, PassengerException {
+		
+		int premium = 31;
+		int economy = 371; 
+		
+		A380 testA380 = new A380("Flight 117", 2200);
+		
+		//Populate flight classes with some (non-full) values
+			// Populate Premium class
+			for(int i = 0; i < premium; i++){
+				Premium testPassenger = new Premium(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Entire Economy class
+			for(int i = 0; i < economy; i++){
+				Economy testPassenger = new Economy(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			
+		testA380.upgradeBookings();
+		assertEquals(35, testA380.getNumPremium());
+		assertEquals(367, testA380.getNumEconomy());
+	}
+	
+	@Test
+	public void UpgradeAllFareClassesTest() throws AircraftException, PassengerException {
+		
+		int first = 10;
+		int business = 60;
+		int premium = 31;
+		int economy = 371; 
+		
+		A380 testA380 = new A380("Flight 117", 2200);
+		
+		//Populate flight classes with some (non-full) values
+			// Populate First class
+			for(int i = 0; i < first; i++){
+				First testPassenger = new First(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Business class
+			for(int i = 0; i < business; i++){
+				Business testPassenger = new Business(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Premium class
+			for(int i = 0; i < premium; i++){
+				Premium testPassenger = new Premium(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Economy class
+			for(int i = 0; i < economy; i++){
+				Economy testPassenger = new Economy(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			
+		testA380.upgradeBookings();
+		assertEquals(14, testA380.getNumFirst());
+		assertEquals(64, testA380.getNumBusiness());
+		assertEquals(35, testA380.getNumPremium());
+	}
+	
+	@Test
+	public void UpgradeOnEmptyFlightTest() throws AircraftException, PassengerException {
+		
+		A380 testA380 = new A380("Flight 117", 2200);
+			
+		testA380.upgradeBookings();
+		assertEquals(0, testA380.getNumFirst());
+		assertEquals(0, testA380.getNumEconomy());
+		assertEquals(0, testA380.getNumPremium());
+	}
+	
+	@Test
+	public void UpgradeOnFullFlightTest() throws AircraftException, PassengerException {
+		
+		int first = 14;
+		int business = 64;
+		int premium = 35;
+		int economy = 371; 
+		
+		A380 testA380 = new A380("Flight 117", 2200);
+		
+		//Populate all flight classes to maximum capacity
+			
+		// Populate First class
+			for(int i = 0; i < first; i++){
+				First testPassenger = new First(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Business class
+			for(int i = 0; i < business; i++){
+				Business testPassenger = new Business(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Premium class
+			for(int i = 0; i < premium; i++){
+				Premium testPassenger = new Premium(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate Economy class
+			for(int i = 0; i < economy; i++){
+				Economy testPassenger = new Economy(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			
+		testA380.upgradeBookings();
+		assertEquals(14, testA380.getNumFirst());
+		assertEquals(64, testA380.getNumBusiness());
+		assertEquals(35, testA380.getNumPremium());
+	}
 }
