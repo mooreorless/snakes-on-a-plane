@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import asgn2Passengers.First;
+import asgn2Passengers.Business;
 import asgn2Passengers.Passenger;
 import asgn2Passengers.PassengerException;
 
@@ -454,13 +455,49 @@ public class FirstTests {
 	}
 
 	@Test
-	public void testWasConfired() throws PassengerException {
-		//TODO
+	public void testWasConfirmed() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int confirmationTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.confirmSeat(confirmationTime, departureTime);
+
+		assertTrue(p.wasConfirmed());
 	}
 
 	@Test
 	public void testWasQueued() throws PassengerException {
-		//TODO
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		int queueTime = 1000;
+		Passenger p = new First(bookingTime, departureTime);
+
+		p.queuePassenger(queueTime, departureTime);
+
+		assertTrue(p.wasQueued());
+	}
+
+	// Can't upgrade First class passenger, so will test Business
+	@Test
+	public void testUpgradeBusinessPassenger() throws PassengerException {
+
+		int bookingTime = 1000;
+		int departureTime = 2000;
+		Passenger business = new Business(bookingTime, departureTime);
+		Passenger upgraded = new First(bookingTime, departureTime);
+
+		System.out.println(business.upgrade());
+
+		String msg = business.getPassID();
+		msg += "changed";
+
+		String otherMsg = upgraded.getPassID();
+
+		System.out.println(msg + otherMsg);
+		assertNotSame(business, upgraded);
 	}
 
 	@Test

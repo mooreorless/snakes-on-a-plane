@@ -130,7 +130,7 @@ public abstract class Passenger {
 			throw new PassengerException("Passenger's current state is invalid");
 		} else if (cancellationTime < invalidCancellationTime || departureTime < cancellationTime) {
 			throw new PassengerException("Cancellation time is less than 0 or Departure time is less than cancellation time");
-		}// End if
+		}
 		
 		// Return passenger to new state & update time
 		this.newState = true;
@@ -164,7 +164,7 @@ public abstract class Passenger {
 			throw new PassengerException("Passenger's current state is invalid");
 		} else if (confirmationTime < invalidConfirmationTime || departureTime < confirmationTime) {
 			throw new PassengerException("Confirmation time is less than 0 or Departure time is less than confirmation time");
-		}// End if
+		}
 		
 		// Confirm the passenger
 		this.confirmed = true;
@@ -202,7 +202,7 @@ public abstract class Passenger {
 			throw new PassengerException("Passenger's current state is invalid");
 		} else if (departureTime <= invalidDepartureTime) {
 			throw new PassengerException("Departure time is less than or equal to 0");
-		}// End if
+		}
 
 		// Fly the passenger
 		this.flown = true;

@@ -39,9 +39,7 @@ public class First extends Passenger {
 
 	@Override
 	public Passenger upgrade() {
-		
 		return null;
-		//Think about it :)
 		// Null method, cannot upgrade a first class passenger
 	}
 }
