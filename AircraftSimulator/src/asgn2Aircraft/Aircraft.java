@@ -103,13 +103,13 @@ public abstract class Aircraft {
 
 		// Determine passenger type and decrement it's fare count
 		if (p instanceof First) {
-			--numFirst;
+			numFirst--;
 		} else if (p instanceof Business) {
-			--numBusiness;
+			numBusiness--;
 		} else if (p instanceof Premium) {
-			--numPremium;
+			numPremium--;
 		} else if (p instanceof Economy) {
-			--numEconomy;
+			numEconomy--;
 		}
 	}
 
@@ -399,8 +399,8 @@ public abstract class Aircraft {
 					for(int j = 0; j < seats.size(); j++){
 						if (seats.get(j) instanceof Business) {
 							// if there are still seats available in first
-							if(seatsAvailable(seats.get(i))){
-								First upgradedBusinessPassenger = (First) seats.get(j).upgrade();
+							if(seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()){
+								Passenger upgradedBusinessPassenger = seats.get(j).upgrade();
 								// Remove old business passenger, add in new upgraded business passenger & update counts
 								seats.remove(seats.get(j));
 								numBusiness--;
@@ -414,8 +414,8 @@ public abstract class Aircraft {
 				if (seatsAvailable(seats.get(i))) {
 					for (int j = 0; j < seats.size(); j++) {
 						if (seats.get(j) instanceof Premium) {
-							if(seatsAvailable(seats.get(i))){
-								Business upgradedPremiumPassenger = (Business) seats.get(j).upgrade();
+							if(seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()){
+								Passenger upgradedPremiumPassenger = seats.get(j).upgrade();
 								seats.remove(seats.get(j));
 								numPremium--;
 								seats.add(upgradedPremiumPassenger);
@@ -428,8 +428,8 @@ public abstract class Aircraft {
 				if (seatsAvailable(seats.get(i))) {
 					for (int j = 0; j < seats.size(); j++) {
 						if (seats.get(j) instanceof Economy) {
-							if(seatsAvailable(seats.get(i))){
-								Premium upgradedEconomyPassenger = (Premium) seats.get(j).upgrade();
+							if(seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()){
+								Passenger upgradedEconomyPassenger = seats.get(j).upgrade();
 								seats.remove(seats.get(j));
 								numEconomy--;
 								seats.add(upgradedEconomyPassenger);
