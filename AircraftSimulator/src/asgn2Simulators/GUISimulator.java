@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
+import asgn2Aircraft.AircraftException;
+import asgn2Passengers.PassengerException;
+
 /**
  * @author hogan
  *
@@ -20,7 +23,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class GUISimulator extends JFrame implements Runnable, ActionListener {
 
-	private static final int WIDTH = 800;
+	private static final int WIDTH = 800; 
 	private static final int HEIGHT = 550;
 
 	private JTextArea mainTextArea;
@@ -31,7 +34,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		premiumLbl, economyLbl;
 	private JPanel btnPnl, simPnl;
 	private JButton btnRunSim, btnShowChart;
-
 
 
 	/**
@@ -54,7 +56,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//Todo
 	}
 
 	private void createGUI() {
@@ -135,10 +136,71 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	private JButton createButton(String str) {
 		JButton button = new JButton();
 		button.setText(str);
-		button.addActionListener(this);
+		button.addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                int seed = Integer.parseInt(rngSeedTxt.getText());
+                int maxQueueSize = Integer.parseInt(queueSizeTxt.getText());
+                double meanDailyBookings = Double.parseDouble(meanTxt.getText());
+                double sdDailyBookings = 0.33*meanDailyBookings;
+                double firstProb = Double.parseDouble(firstTxt.getText());
+                double businessProb = Double.parseDouble(businessTxt.getText());
+                double premiumProb = Double.parseDouble(premiumTxt.getText());
+                double economyProb = Double.parseDouble(economyTxt.getText());
+                double cancelProb = Double.parseDouble(cancelTxt.getText());
+                
+                try {
+					Simulator sim = new Simulator(seed, maxQueueSize, meanDailyBookings, sdDailyBookings, firstProb, businessProb, premiumProb, economyProb, cancelProb);
+	                mainTextArea.setText(runSim(sim));
+                } catch (SimulationException | AircraftException | PassengerException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        
+            }
+        });  
 		button.setPreferredSize(new Dimension(200, 45));
 
 		return button;
+	}
+	
+	private String runSim(Simulator sim) throws AircraftException, PassengerException, SimulationException {
+		
+		String returnString = "";
+		
+		sim.createSchedule();
+		//this.log.initialEntry(sim);
+		returnString += "Start of simulation:\n";
+		
+		//Main simulation loop 
+		for (int time = 0; time <= Constants.DURATION; time++) {
+			sim.resetStatus(time); 
+			sim.rebookCancelledPassengers(time); 
+			sim.generateAndHandleBookings(time);
+			sim.processNewCancellations(time);
+			if (time >= Constants.FIRST_FLIGHT) {
+				sim.processUpgrades(time);
+				sim.processQueue(time);
+				sim.flyPassengers(time);
+				sim.updateTotalCounts(time); 
+				//this.log.logFlightEntries(time, sim);
+			} else {
+				sim.processQueue(time);
+			}
+			//Log progress 
+			//this.log.logQREntries(time, sim);
+			//this.log.logEntry(time,this.sim);
+			Boolean flying = (time >= Constants.FIRST_FLIGHT);
+			returnString += sim.getSummary(time, flying);
+		}
+		sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
+		//this.log.logQREntries(Constants.DURATION, sim);
+		//this.log.finalise(sim);
+		returnString += "\n End of Simulation\n";
+		returnString += sim.finalState();
+		
+		return returnString;
 	}
 
 	private void layoutButtonPanel() {
@@ -149,8 +211,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 
 		btnPnl.setLayout(btnLayout);
 
-
-
 		// add components to gridbag
 		GridBagConstraints btnConstraints = new GridBagConstraints();
 		//Defaults
@@ -160,8 +220,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		btnConstraints.weighty = 100;
 		btnConstraints.ipadx = 15;
 		btnConstraints.ipady = 15;
-
-
 
 		addToPanel(btnPnl, btnRunSim, btnConstraints, 1, 2, 1, 1);
 		addToPanel(btnPnl, btnShowChart, btnConstraints, 1, 1, 1, 1);
@@ -181,9 +239,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		addToPanel(simPnl, cancelLbl, btnConstraints, 1, 1, 1, 1);
 		addToPanel(simPnl, cancelTxt, btnConstraints, 1, 1, 1, 1);
 
-
-
-
 		//Fare Class
 		addToPanel(simPnl, fareClassLbl, btnConstraints, 1, 1, 1, 1);
 
@@ -198,14 +253,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 
 		addToPanel(simPnl, economyLbl, btnConstraints, 1, 1, 1, 1);
 		addToPanel(simPnl, economyTxt, btnConstraints, 1, 1, 1, 1);
-
-
-
-
-
-
-
-
 	}
 
 	private void addToPanel(JPanel panel, Component c, GridBagConstraints constraints, int x, int y, int w, int h) {
