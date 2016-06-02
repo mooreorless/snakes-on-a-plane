@@ -356,34 +356,37 @@ public abstract class Aircraft {
 	 */
 	public void upgradeBookings() {
 		
-		for (Passenger p: seats) {
-			if (p instanceof Business) {
-				numBusiness--;
-				this.status += Log.setUpgradeMsg(p);
-				p = p.upgrade();
-				numFirst++;
-				
+		if((firstCapacity - numFirst) > 0){
+			for (Passenger p: seats) {
+				if (p instanceof Business && (firstCapacity - numFirst) > 0) {
+					numBusiness--;
+					this.status += Log.setUpgradeMsg(p);
+					p = p.upgrade();
+					numFirst++;
+				}
 			}
 		}
 		
-		for (Passenger p: seats) {
-			if (p instanceof Premium) {
-				numPremium--;
-				this.status += Log.setUpgradeMsg(p);
-				p = p.upgrade();
-				numBusiness++;
-				
+		if((businessCapacity - numBusiness) > 0){
+			for (Passenger p: seats) {
+				if (p instanceof Premium && (businessCapacity - numBusiness) > 0) {
+					numPremium--;
+					this.status += Log.setUpgradeMsg(p);
+					p = p.upgrade();
+					numBusiness++;
+				}
 			}
 		}
 		
-		for (Passenger p: seats) {
-			if (p instanceof Economy) {
-				numEconomy--;
-				this.status += Log.setUpgradeMsg(p);
-				p = p.upgrade();
-				numPremium++;
-				
-			}
+		if((premiumCapacity - numPremium) > 0){
+			for (Passenger p: seats) {
+				if (p instanceof Economy && (premiumCapacity - numPremium) > 0) {
+					numEconomy--;
+					this.status += Log.setUpgradeMsg(p);
+					p = p.upgrade();
+					numPremium++;
+				}
+			}	
 		}
 		
 //		if((firstCapacity - numFirst) > 0){
