@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 
 import asgn2Aircraft.AircraftException;
 import asgn2Passengers.PassengerException;
@@ -115,19 +116,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		premiumTxt.setText("0.13");
 		economyTxt.setText("0.7");
 
-		//Set defaults run sim values
-
-		rngSeedTxt.setText("100");
-		meanTxt.setText("1300.0");
-		queueSizeTxt.setText("500");
-		cancelTxt.setText("0.1");
-
-		firstTxt.setText("0.03");
-		businessTxt.setText("0.14");
-		premiumTxt.setText("0.13");
-		economyTxt.setText("0.7");
-
-
 		firstLbl = createLabel("First");
 		businessLbl = createLabel("Business");
 		premiumLbl = createLabel("Premium");
@@ -142,7 +130,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		frame.getContentPane().add(simPnl, BorderLayout.CENTER);
 
 
-// Don't add buttons here - use addToPanel method
+		// Don't add buttons here - use addToPanel method
 
 		frame.repaint();
 		frame.pack();
@@ -158,81 +146,8 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		display.setFont(new Font("Arial", Font.PLAIN, 16));
 		display.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		display.setAlignmentX(LEFT_ALIGNMENT);
-
+		
 		return display;
-	}
-
-	private JButton createButton(String str) {
-		JButton button = new JButton();
-		button.setText(str);
-		button.addActionListener(new ActionListener() {
-			 
-            public void actionPerformed(ActionEvent e)
-            {
-                int seed = Integer.parseInt(rngSeedTxt.getText());
-                int maxQueueSize = Integer.parseInt(queueSizeTxt.getText());
-                double meanDailyBookings = Double.parseDouble(meanTxt.getText());
-                double sdDailyBookings = 0.33*meanDailyBookings;
-                double firstProb = Double.parseDouble(firstTxt.getText());
-                double businessProb = Double.parseDouble(businessTxt.getText());
-                double premiumProb = Double.parseDouble(premiumTxt.getText());
-                double economyProb = Double.parseDouble(economyTxt.getText());
-                double cancelProb = Double.parseDouble(cancelTxt.getText());
-                
-                try {
-					Simulator sim = new Simulator(seed, maxQueueSize, meanDailyBookings, sdDailyBookings, firstProb, businessProb, premiumProb, economyProb, cancelProb);
-	                mainTextArea.setText(runSim(sim));
-                } catch (SimulationException | AircraftException | PassengerException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        
-            }
-        });  
-		button.setPreferredSize(new Dimension(220, 45));
-
-		return button;
-	}
-	
-	private String runSim(Simulator sim) throws AircraftException, PassengerException, SimulationException {
-		
-		String returnString = "";
-		
-		sim.createSchedule();
-		//this.log.initialEntry(sim);
-		returnString += "Start of simulation:\n";
-		returnString += sim.toString() + "\n";
-		String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
-		returnString += capacities;
-		
-		//Main simulation loop 
-		for (int time = 0; time <= Constants.DURATION; time++) {
-			sim.resetStatus(time); 
-			sim.rebookCancelledPassengers(time); 
-			sim.generateAndHandleBookings(time);
-			sim.processNewCancellations(time);
-			if (time >= Constants.FIRST_FLIGHT) {
-				sim.processUpgrades(time);
-				sim.processQueue(time);
-				sim.flyPassengers(time);
-				sim.updateTotalCounts(time); 
-				//this.log.logFlightEntries(time, sim);
-			} else {
-				sim.processQueue(time);
-			}
-			//Log progress 
-			//this.log.logQREntries(time, sim);
-			//this.log.logEntry(time,this.sim);
-			Boolean flying = (time >= Constants.FIRST_FLIGHT);
-			returnString += sim.getSummary(time, flying);
-		}
-		sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
-		//this.log.logQREntries(Constants.DURATION, sim);
-		//this.log.finalise(sim);
-		returnString += "\nEnd of Simulation\n";
-		returnString += sim.finalState();
-		
-		return returnString;
 	}
 
 	private void layoutButtonPanel() {
@@ -318,6 +233,295 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		JTextField textField = new JTextField(5);
 
 		return textField;
+	}
+	
+	private JButton createButton(String str) {
+		JButton button = new JButton();
+		button.setText(str);
+		button.addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e){
+            	
+            	String s = validateAllFields();
+
+            	if(s == "A"){
+            		// do nothing
+            	} else {
+            		JOptionPane.showMessageDialog(null, "Error: " + s, "InfoBox: " + "Invalid input!", JOptionPane.INFORMATION_MESSAGE);
+            		return;
+            	}
+            	
+            	int seed = Integer.parseInt(rngSeedTxt.getText());
+                int maxQueueSize = Integer.parseInt(queueSizeTxt.getText());
+                double meanDailyBookings = Double.parseDouble(meanTxt.getText());
+                double sdDailyBookings = 0.33*meanDailyBookings;
+                double firstProb = Double.parseDouble(firstTxt.getText());
+                double businessProb = Double.parseDouble(businessTxt.getText());
+                double premiumProb = Double.parseDouble(premiumTxt.getText());
+                double economyProb = Double.parseDouble(economyTxt.getText());
+                double cancelProb = Double.parseDouble(cancelTxt.getText());
+                
+                try {
+					Simulator sim = new Simulator(seed, maxQueueSize, meanDailyBookings, sdDailyBookings, firstProb, businessProb, premiumProb, economyProb, cancelProb);
+	                mainTextArea.setText(runSim(sim));
+                } catch (SimulationException | AircraftException | PassengerException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        
+            }
+        });  
+		button.setPreferredSize(new Dimension(220, 45));
+
+		return button;
+	}
+	
+	private String runSim(Simulator sim) throws AircraftException, PassengerException, SimulationException {
+		
+		String returnString = "";
+		
+		sim.createSchedule();
+		//this.log.initialEntry(sim);
+		returnString += "Start of simulation:\n";
+		returnString += sim.toString() + "\n";
+		String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
+		returnString += capacities;
+		
+		//Main simulation loop 
+		for (int time = 0; time <= Constants.DURATION; time++) {
+			sim.resetStatus(time); 
+			sim.rebookCancelledPassengers(time);
+			sim.generateAndHandleBookings(time);
+			sim.processNewCancellations(time);
+			if (time >= Constants.FIRST_FLIGHT) {
+				sim.processUpgrades(time);
+				sim.processQueue(time);
+				sim.flyPassengers(time);
+				sim.updateTotalCounts(time);
+				//this.log.logFlightEntries(time, sim);
+			} else {
+				sim.processQueue(time);
+			}
+			//Log progress 
+			//this.log.logQREntries(time, sim);
+			//this.log.logEntry(time,this.sim);
+			Boolean flying = (time >= Constants.FIRST_FLIGHT);
+			returnString += sim.getSummary(time, flying);
+		}
+		sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
+		//this.log.logQREntries(Constants.DURATION, sim);
+		//this.log.finalise(sim);
+		returnString += "\nEnd of Simulation\n";
+		returnString += sim.finalState();
+		
+		return returnString;
+	}
+	
+	/*
+	 * Function is used to call all validate field functions. At any time, string s will either hold an error message
+	 * or the string "A". The string "A" represents that all currently checked input has been "A"ccepted.
+	 */
+	
+	private String validateAllFields(){
+		String s = validateSeed();
+		if(s != "A"){
+			return s;
+		}
+		s = validateMean();
+		if(s != "A"){
+			return s;
+		}
+		s = validateQueue();
+		if(s != "A"){
+			return s;
+		}
+		s = validateCancel();
+		if(s != "A"){
+			return s;
+		}
+		s = validateFirst();
+		if(s != "A"){
+			return s;
+		}
+		s = validateBusiness();
+		if(s != "A"){
+			return s;
+		}
+		s = validatePremium();
+		if(s != "A"){
+			return s;
+		}
+		s = validateEconomy();
+		if(s != "A"){
+			return s;
+		}
+		s = validateProbability();
+		return s;
+	}
+	
+	/*
+	 * Function used to check that input from the Seed textfield is not a string and is also greater than 0.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateSeed(){
+		try{
+			int value = Integer.parseInt(rngSeedTxt.getText());
+			if(value <= 0){
+				return "Seed cannot be less than or equal to zero. ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Seed cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the Mean textfield is not a string and is also greater than 0.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateMean(){
+		try{
+			double value = Double.parseDouble(meanTxt.getText());
+			if(value <= 0){
+				return "Mean cannot be less than or equal to zero. ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Mean cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the Queue textfield is not a string and is also greater than 0.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateQueue(){
+		try{
+			int value = Integer.parseInt(queueSizeTxt.getText());
+			if(value <= 0){
+				return "Queue cannot be less than or equal to zero. ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Queue cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the Cancel textfield is not a string and is also greater than 0.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateCancel(){
+		try{
+			double value = Double.parseDouble(cancelTxt.getText());
+			if(value <= 0){
+				return "Cancel cannot be less than or equal to zero. ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Cancel cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the First textfield is not a string and input is between 0 and 1.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateFirst(){
+		try{
+			double value = Double.parseDouble(firstTxt.getText());
+			if(value < 0 || value > 1){
+				return "First probability must be between 0 and 1 ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "First probability cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the Business textfield is not a string and input is between 0 and 1.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateBusiness(){
+		try{
+			double value = Double.parseDouble(businessTxt.getText());
+			if(value < 0 || value > 1){
+				return "Business probability must be between 0 and 1 ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Business probability cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the Premium textfield is not a string and input is between 0 and 1.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validatePremium(){
+		try{
+			double value = Double.parseDouble(premiumTxt.getText());
+			if(value < 0 || value > 1){
+				return "Premium probability must be between 0 and 1 ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Premium probability cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that input from the Economy textfield is not a string and input is between 0 and 1.
+	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
+	 */
+	
+	private String validateEconomy(){
+		try{
+			double value = Double.parseDouble(economyTxt.getText());
+			if(value < 0 || value > 1){
+				return "Economy probability must be between 0 and 1 ";
+			} else {
+				return "A";
+			}
+		} catch (java.lang.NumberFormatException e1) {
+			return "Economy probability cannot be a string. ";
+		}
+	}
+	
+	/*
+	 * Function used to check that all culmative probabilities are equal to 100. 
+	 * Will return an error message if the probability total is invalid, otherwise will return "A".
+	 */
+	
+	private String validateProbability(){
+		
+		double first = Double.parseDouble(firstTxt.getText());
+		double business = Double.parseDouble(businessTxt.getText());
+		double premium = Double.parseDouble(premiumTxt.getText());
+		double economy = Double.parseDouble(economyTxt.getText());
+		double totalProbability = first + business + premium + economy;
+		double validProbability = 1.0;
+		
+		if(totalProbability == validProbability){
+			return "A";
+		} else {
+			return "Invalid probabilities. Total class probabilities must equal 100.";
+		}
 	}
 
 	/**
