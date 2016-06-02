@@ -291,7 +291,7 @@ public abstract class Aircraft {
 	 */
 	public boolean hasPassenger(Passenger p) {
 
-		return this.seats.indexOf(p) >=0;
+		return this.seats.indexOf(p) >= 0;
 	}
 	
 
