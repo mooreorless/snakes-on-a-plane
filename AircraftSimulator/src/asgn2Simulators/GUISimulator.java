@@ -24,9 +24,14 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	private static final int HEIGHT = 550;
 
 	private JTextArea mainTextArea;
-	private JPanel btnPanel;
-	private JLabel lblButtons, lblSettings, lblFareClasses;
+	private JTextField rngSeedTxt, meanTxt, queueSizeTxt, cancelTxt,
+	firstTxt, businessTxt, premiumTxt, economyTxt;
+	private JLabel rngSeedLbl, meanLbl, queueSizeLbl, cancelLbl,
+		simulationLbl, fareClassLbl, firstLbl, businessLbl,
+		premiumLbl, economyLbl;
+	private JPanel btnPnl, simPnl;
 	private JButton btnRunSim, btnShowChart;
+
 
 
 	/**
@@ -59,31 +64,59 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		frame.setLayout(new BorderLayout());
 
 		//Styles
-		String runSimLblStyle = "<html><h1 style='font-weight: bold; font-size: 1.1em; color: grey;'>Run Simulation</h1></html>";
-		String operationsLblStyle = "<html><h1 style='font-weight: bold; font-size: 1.2em; color: green;'>Operations</h1></html>";
+		String runSimBtnText = "<html><h1 style='font-weight: bold; font-size: 1em; color: grey;'>Run Simulation</h1></html>";
+		String showChartBtnText = "<html><h1 style='font-weight: bold; font-size: 1em; color: grey;'>Show Chart</h1></html>";
+
+		String simulationLblStyle = "<html><h1 style='font-weight: bold; font-size: 1.1em; color: black;'>Simulation &nbsp;</h1></html>";
+		String fareClassLblStyle = "<html><h1 style='font-weight: bold; font-size: 1.1em; color: black;'>Fare Classes &nbsp;</h1></html>";
 
 
 		mainTextArea = createTextArea();
-		//btnRunSim = createButton("Run Simulation");
-		btnRunSim = createButton(runSimLblStyle);
-		btnShowChart = createButton("Show Chart");
-		btnPanel = createPanel(Color.WHITE);
-
-		lblButtons = createLabel(operationsLblStyle);
-		lblSettings = createLabel("Simulation");
-		lblFareClasses = createLabel("Fare Classes");
 
 
+		btnPnl = createPanel(Color.GRAY);
+		simPnl = createPanel(Color.lightGray);
 
-		frame.getContentPane().add(mainTextArea, BorderLayout.CENTER);
-		frame.getContentPane().add(btnPanel, BorderLayout.SOUTH);
+		btnRunSim = createButton(runSimBtnText);
+		btnShowChart = createButton(showChartBtnText);
 
-// Don't add buttons here - use addToPanel method
+		rngSeedTxt = createTextField();
+		meanTxt = createTextField();
+		queueSizeTxt = createTextField();
+		cancelTxt = createTextField();
+
+		simulationLbl = createLabel(simulationLblStyle);
+
+		rngSeedLbl = createLabel("RNG Seed");
+		meanLbl = createLabel("Daily Mean");
+		queueSizeLbl = createLabel("Queue Size");
+		cancelLbl = createLabel("Cancellation");
+
+
+		fareClassLbl = createLabel(fareClassLblStyle);
+
+		firstTxt = createTextField();
+		businessTxt = createTextField();
+		premiumTxt = createTextField();
+		economyTxt = createTextField();
+
+		firstLbl = createLabel("First");
+		businessLbl = createLabel("Business");
+		premiumLbl = createLabel("Premium");
+		economyLbl = createLabel("Economy");
 
 		layoutButtonPanel();
 
+		frame.getContentPane().add(mainTextArea, BorderLayout.PAGE_START);
+		frame.getContentPane().add(btnPnl, BorderLayout.PAGE_END);
+		frame.getContentPane().add(simPnl, BorderLayout.CENTER);
+
+
+// Don't add buttons here - use addToPanel method
+
 
 		frame.repaint();
+		frame.pack();
 		frame.setVisible(true);
 	}
 
@@ -92,8 +125,9 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		display.setEditable(false);
 		display.setLineWrap(true);
 		//change text size later might be too big
-		display.setFont(new Font("Arial", Font.BOLD, 24));
+		display.setFont(new Font("Arial", Font.PLAIN, 16));
 		display.setBorder(BorderFactory.createEtchedBorder());
+		display.setPreferredSize(new Dimension(800, 390));
 
 		return display;
 	}
@@ -102,29 +136,75 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		JButton button = new JButton();
 		button.setText(str);
 		button.addActionListener(this);
+		button.setPreferredSize(new Dimension(200, 45));
 
 		return button;
 	}
 
 	private void layoutButtonPanel() {
-		GridBagLayout layout = new GridBagLayout();
-		btnPanel.setLayout(layout);
+
+		//Setup gridbags for separate button panels
+
+		GridBagLayout btnLayout = new GridBagLayout();
+
+		btnPnl.setLayout(btnLayout);
+
+
 
 		// add components to gridbag
-		GridBagConstraints constraints = new GridBagConstraints();
+		GridBagConstraints btnConstraints = new GridBagConstraints();
 		//Defaults
-		constraints.fill = GridBagConstraints.NONE;
-		constraints.anchor = GridBagConstraints.EAST;
-		constraints.weightx = 100;
-		constraints.weighty = 100;
-		constraints.ipadx = 15;
-		constraints.ipady = 15;
+		btnConstraints.fill = GridBagConstraints.CENTER;
+		btnConstraints.anchor = GridBagConstraints.SOUTH;
+		btnConstraints.weightx = 100;
+		btnConstraints.weighty = 100;
+		btnConstraints.ipadx = 15;
+		btnConstraints.ipady = 15;
 
 
-		addToPanel(btnPanel, lblButtons, constraints, 5, 1, 2, 1);
 
-		addToPanel(btnPanel, btnRunSim, constraints, 5, 5, 2, 1);
-		addToPanel(btnPanel, btnShowChart, constraints, 5, 2, 2, 1);
+		addToPanel(btnPnl, btnRunSim, btnConstraints, 1, 2, 1, 1);
+		addToPanel(btnPnl, btnShowChart, btnConstraints, 1, 1, 1, 1);
+
+		//Simulation Heading
+		addToPanel(simPnl, simulationLbl, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, rngSeedLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, rngSeedTxt, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, meanLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, meanTxt, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, queueSizeLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, queueSizeTxt, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, cancelLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, cancelTxt, btnConstraints, 1, 1, 1, 1);
+
+
+
+
+		//Fare Class
+		addToPanel(simPnl, fareClassLbl, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, firstLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, firstTxt, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, businessLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, businessTxt, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, premiumLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, premiumTxt, btnConstraints, 1, 1, 1, 1);
+
+		addToPanel(simPnl, economyLbl, btnConstraints, 1, 1, 1, 1);
+		addToPanel(simPnl, economyTxt, btnConstraints, 1, 1, 1, 1);
+
+
+
+
+
+
+
 
 	}
 
@@ -140,6 +220,8 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	private JPanel createPanel(Color c) {
 		JPanel panel = new JPanel();
 		panel.setBackground(c);
+		panel.setPreferredSize(new Dimension(800, 150));
+//		panel.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		return panel;
 	}
@@ -148,11 +230,19 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		JLabel label = new JLabel();
 		label.setText(str);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setForeground(Color.DARK_GRAY);
 		//label.setFont(new Font("Sans-serif", Font.BOLD, 18));
-		label.setAlignmentX(0.5f);
+		//label.setAlignmentX(0.5f);
 
 		return label;
 	}
+
+	private JTextField createTextField() {
+		JTextField textField = new JTextField(5);
+
+		return textField;
+	}
+
 	/**
 	 * @param args
 	 */
