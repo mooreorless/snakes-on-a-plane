@@ -322,7 +322,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * or the string "A". The string "A" represents that all currently checked input has been "A"ccepted.
 	 */
 	
-	private String validateAllFields(){
+	private String validateAllFields() {
 		String s = validateSeed();
 		if(s != "A"){
 			return s;
@@ -364,7 +364,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateSeed(){
+	private String validateSeed() {
 		try{
 			int value = Integer.parseInt(rngSeedTxt.getText());
 			if(value <= 0){
@@ -382,7 +382,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateMean(){
+	private String validateMean() {
 		try{
 			double value = Double.parseDouble(meanTxt.getText());
 			if(value <= 0){
@@ -400,11 +400,11 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateQueue(){
-		try{
+	private String validateQueue() {
+		try {
 			int value = Integer.parseInt(queueSizeTxt.getText());
-			if(value <= 0){
-				return "Queue cannot be less than or equal to zero. ";
+			if (value < 0) {
+				return "Queue cannot be less than zero.";
 			} else {
 				return "A";
 			}
@@ -418,11 +418,11 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateCancel(){
-		try{
+	private String validateCancel() {
+		try {
 			double value = Double.parseDouble(cancelTxt.getText());
-			if(value <= 0){
-				return "Cancel cannot be less than or equal to zero. ";
+			if (value < 0) {
+				return "Cancel cannot be less than zero. ";
 			} else {
 				return "A";
 			}
@@ -436,10 +436,10 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateFirst(){
-		try{
+	private String validateFirst() {
+		try {
 			double value = Double.parseDouble(firstTxt.getText());
-			if(value < 0 || value > 1){
+			if (value < 0 || value > 1) {
 				return "First probability must be between 0 and 1 ";
 			} else {
 				return "A";
@@ -454,10 +454,10 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateBusiness(){
-		try{
+	private String validateBusiness() {
+		try {
 			double value = Double.parseDouble(businessTxt.getText());
-			if(value < 0 || value > 1){
+			if (value < 0 || value > 1) {
 				return "Business probability must be between 0 and 1 ";
 			} else {
 				return "A";
@@ -472,10 +472,10 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validatePremium(){
-		try{
+	private String validatePremium() {
+		try {
 			double value = Double.parseDouble(premiumTxt.getText());
-			if(value < 0 || value > 1){
+			if (value < 0 || value > 1) {
 				return "Premium probability must be between 0 and 1 ";
 			} else {
 				return "A";
@@ -490,10 +490,10 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return either an error message if input is invalid or "A" if input has been "A"ccepted.
 	 */
 	
-	private String validateEconomy(){
-		try{
+	private String validateEconomy() {
+		try {
 			double value = Double.parseDouble(economyTxt.getText());
-			if(value < 0 || value > 1){
+			if (value < 0 || value > 1) {
 				return "Economy probability must be between 0 and 1 ";
 			} else {
 				return "A";
@@ -508,7 +508,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	 * Will return an error message if the probability total is invalid, otherwise will return "A".
 	 */
 	
-	private String validateProbability(){
+	private String validateProbability() {
 		
 		double first = Double.parseDouble(firstTxt.getText());
 		double business = Double.parseDouble(businessTxt.getText());
@@ -517,7 +517,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		double totalProbability = first + business + premium + economy;
 		double validProbability = 1.0;
 		
-		if(totalProbability == validProbability){
+		if (totalProbability == validProbability) {
 			return "A";
 		} else {
 			return "Invalid probabilities. Total class probabilities must equal 100.";
