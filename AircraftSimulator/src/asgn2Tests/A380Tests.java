@@ -31,10 +31,10 @@ public class A380Tests {
 
 	// Test methods for A380/Aircraft constructor
 	
-//	@Test(expected = AircraftException.class)
-//	public void InvalidFlightCode() throws AircraftException {
-//		A380 testA380 = new A380(null, 2200);
-//	}
+	@Test(expected = AircraftException.class)
+	public void InvalidFlightCode() throws AircraftException {
+		A380 testA380 = new A380(null, 2200);
+	}
 	
 	@Test(expected = AircraftException.class)
 	public void DepartureTimeLessThanZero() throws AircraftException {
@@ -136,19 +136,19 @@ public class A380Tests {
 		testA380.cancelBooking(testPassenger, 6);
 	}
 	
-//	@Test(expected = AircraftException.class)
-//	public void CancelBookingPassengerNotInSeating() throws PassengerException, AircraftException {
-//		
-//		A380 testA380 = new A380("testFlightCode", 2200);
-//		Economy testPassenger = new Economy(2, 4);
-//		testA380.cancelBooking(testPassenger, 6);
-//	}
+	@Test(expected = AircraftException.class)
+	public void CancelBookingPassengerNotInSeating() throws PassengerException, AircraftException {
+		
+		A380 testA380 = new A380("testFlightCode", 2200);
+		Economy testPassenger = new Economy(2, 4);
+		testA380.cancelBooking(testPassenger, 6);
+	}
 	
-//	@Test
-//	public void CancelFirstClassBooking() throws AircraftException, PassengerException{
-//		First testFirstPassenger = new First(1200, 2200);
-//		A380 testA380 = new A380("Flight code 117", 2200);
-//	}
+	@Test
+	public void CancelFirstClassBooking() throws AircraftException, PassengerException{
+		First testFirstPassenger = new First(1200, 2200);
+		A380 testA380 = new A380("Flight code 117", 2200);
+	}
 	
 	// Test methods for flightEmpty
 	
@@ -478,7 +478,7 @@ public class A380Tests {
 		
 		A380 testA380 = new A380("Flight 117", 2200);
 		
-		//Populate flight classes with some (non-full) values
+		//Populate flight classes with some values
 			// Populate First class
 			for(int i = 0; i < first; i++){
 				First testPassenger = new First(1200, 2200);
@@ -498,12 +498,18 @@ public class A380Tests {
 	@Test
 	public void PremiumToBusinessUpgradeTest() throws AircraftException, PassengerException {
 		
+		int first = 14;
 		int business = 60;
-		int premium = 35; 
+		int premium = 35;
 		
 		A380 testA380 = new A380("Flight 117", 2200);
 		
-		//Populate flight classes with some (non-full) values
+		//Populate flight classes with some values
+		// Populate entire First class
+			for(int i = 0; i < first; i++){
+				First testPassenger = new First(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
 			// Populate Business class
 			for(int i = 0; i < business; i++){
 				Business testPassenger = new Business(1200, 2200);
@@ -523,12 +529,24 @@ public class A380Tests {
 	@Test
 	public void EconomyToPremiumUpgradeTest() throws AircraftException, PassengerException {
 		
+		int first = 14;
+		int business = 64;
 		int premium = 31;
 		int economy = 371; 
 		
 		A380 testA380 = new A380("Flight 117", 2200);
 		
-		//Populate flight classes with some (non-full) values
+		//Populate flight classes with some values
+			// Populate entire First class
+			for(int i = 0; i < first; i++){
+				First testPassenger = new First(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
+			// Populate entire Business class
+			for(int i = 0; i < business; i++){
+				Business testPassenger = new Business(1200, 2200);
+				testA380.confirmBooking(testPassenger, 1500);
+			}
 			// Populate Premium class
 			for(int i = 0; i < premium; i++){
 				Premium testPassenger = new Premium(1200, 2200);
@@ -555,7 +573,7 @@ public class A380Tests {
 		
 		A380 testA380 = new A380("Flight 117", 2200);
 		
-		//Populate flight classes with some (non-full) values
+		//Populate flight classes with some values
 			// Populate First class
 			for(int i = 0; i < first; i++){
 				First testPassenger = new First(1200, 2200);
@@ -582,7 +600,7 @@ public class A380Tests {
 		assertEquals(64, testA380.getNumBusiness());
 		assertEquals(35, testA380.getNumPremium());
 	}
-	
+//	
 	@Test
 	public void UpgradeOnEmptyFlightTest() throws AircraftException, PassengerException {
 		
@@ -631,5 +649,30 @@ public class A380Tests {
 		assertEquals(14, testA380.getNumFirst());
 		assertEquals(64, testA380.getNumBusiness());
 		assertEquals(35, testA380.getNumPremium());
+		assertEquals(371, testA380.getNumEconomy());
+	}
+	
+	@Test
+	public void UpgradeOneEachTest() throws AircraftException, PassengerException {
+		
+		A380 testA380 = new A380("Flight 117", 2200);
+		
+		Passenger testFirst = new First(1500, 2200);
+		Passenger testBusiness = new Business(1500, 2200);
+		Passenger testPremium = new Premium(1500, 2200);
+		Passenger testEconomy = new Economy(1500, 2200);
+		
+		testA380.confirmBooking(testFirst, 1600);
+		testA380.confirmBooking(testBusiness, 1600);
+		testA380.confirmBooking(testPremium, 1600);
+		testA380.confirmBooking(testEconomy, 1600);
+		
+			
+		testA380.upgradeBookings();
+		
+		assertEquals(2, testA380.getNumFirst());
+		assertEquals(1, testA380.getNumBusiness());
+		assertEquals(1, testA380.getNumPremium());
+		assertEquals(0, testA380.getNumEconomy());
 	}
 }

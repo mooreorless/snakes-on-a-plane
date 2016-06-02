@@ -439,7 +439,7 @@ public abstract class Passenger {
 		
 		int minConfirmationTime = 0;
 		// My tutor made this suggestion for simple boolean returns
-		return this.confirmationTime > minConfirmationTime;
+		return this.confirmed || this.confirmationTime > minConfirmationTime;
 	}
 
 	/**
@@ -451,7 +451,7 @@ public abstract class Passenger {
 		
 		int minQueueTime = 0;
 
-		return this.enterQueueTime > minQueueTime;
+		return this.inQueue || this.enterQueueTime > minQueueTime;
 	}
 	
 	/**

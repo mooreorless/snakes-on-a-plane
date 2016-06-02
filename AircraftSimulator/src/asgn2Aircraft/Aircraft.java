@@ -77,7 +77,7 @@ public abstract class Aircraft {
 		this.status = "";
 		this.seats = new ArrayList<Passenger>();
 
-		if ( flightCode.isEmpty() || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
+		if (flightCode == null || flightCode.isEmpty() || departureTime <= 0 || first < 0 || business < 0 || premium < 0 || economy < 0 ) {
 			throw new AircraftException("Flight code null, departureTime invalid, invalid num of passengers");
 		}
 	}
@@ -97,6 +97,7 @@ public abstract class Aircraft {
 		if (!hasPassenger(p)) {
 			throw new AircraftException("Passenger not recorded on flight");
 		}
+		
 		p.cancelSeat(cancellationTime);
 		this.status += Log.setPassengerMsg(p, "C", "N");
 		seats.remove(p);
@@ -191,6 +192,7 @@ public abstract class Aircraft {
 
 		for (Passenger p : seats) {
 			p.flyPassenger(departureTime);
+			//change status???
 		}
 	}
 	
@@ -290,7 +292,7 @@ public abstract class Aircraft {
 	 */
 	public boolean hasPassenger(Passenger p) {
 
-		return p.isConfirmed();
+		return this.seats.indexOf(p) >=0;
 	}
 	
 
@@ -316,18 +318,16 @@ public abstract class Aircraft {
 	 */
 	public boolean seatsAvailable(Passenger p) {
 
-			switch(p.getPassID().charAt(0)) {
-				case 'F':
-					return ((firstCapacity - numFirst) > 0);
-				case 'J':
-					return ((businessCapacity - numBusiness) > 0);
-				case 'P':
-					return ((premiumCapacity - numPremium) > 0);
-				case 'Y':
-					return ((economyCapacity - numEconomy) > 0);
-				default:
-					return false;
-			}
+//		returns just F, J, P, Y rather than F: etc
+		if (p instanceof First) {
+			return ((firstCapacity - numFirst) > 0);
+		} else if(p instanceof Business){
+			return ((businessCapacity - numBusiness) > 0);
+		} else if(p instanceof Premium) {
+			return ((premiumCapacity - numPremium) > 0);
+		} else {
+			return ((economyCapacity - numEconomy) > 0);
+		}
 	}
 
 	/* 
@@ -355,59 +355,76 @@ public abstract class Aircraft {
 	 * where possible to Premium.  
 	 */
 	public void upgradeBookings() {
-
-		// Loop through all passengers (i)
-		for (int i = 0; i < seats.size(); i++) {
-
-			// If the passenger is first class & if there are seats available in first
-			if (seats.get(i) instanceof First) {
-				if (seatsAvailable(seats.get(i))) {
-					// Loop through all passengers again and if they're a business passenger, begin upgrade process
-					for(int j = 0; j < seats.size(); j++){
-						if (seats.get(j) instanceof Business) {
-							// if there are still seats available in first
-							if (seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()) {
-								Passenger upgradedBusinessPassenger = seats.get(j).upgrade();
-								// Remove old business passenger, add in new upgraded business passenger & update counts
-								seats.remove(seats.get(j));
-								numBusiness--;
-								seats.add(upgradedBusinessPassenger);
-								numFirst++;
-							}
-						}
-					}
-				}
-			} else if (seats.get(i) instanceof Business) {
-				if (seatsAvailable(seats.get(i))) {
-					for (int j = 0; j < seats.size(); j++) {
-						if (seats.get(j) instanceof Premium) {
-							if (seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()) {
-								Passenger upgradedPremiumPassenger = seats.get(j).upgrade();
-								seats.remove(seats.get(j));
-								numPremium--;
-								seats.add(upgradedPremiumPassenger);
-								numBusiness++;
-							}
-						}
-					}
-				}
-			} else if (seats.get(i) instanceof Premium) {
-				if (seatsAvailable(seats.get(i))) {
-					for (int j = 0; j < seats.size(); j++) {
-						if (seats.get(j) instanceof Economy) {
-							if (seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()) {
-								Passenger upgradedEconomyPassenger = seats.get(j).upgrade();
-								seats.remove(seats.get(j));
-								numEconomy--;
-								seats.add(upgradedEconomyPassenger);
-								numPremium++;
-							}
-						}
-					}
-				}
+		
+		for (Passenger p: seats) {
+			if (p instanceof Business) {
+				numBusiness--;
+				this.status += Log.setUpgradeMsg(p);
+				p = p.upgrade();
+				numFirst++;
+				
 			}
-
-		}// End for
+		}
+		
+		for (Passenger p: seats) {
+			if (p instanceof Premium) {
+				numPremium--;
+				this.status += Log.setUpgradeMsg(p);
+				p = p.upgrade();
+				numBusiness++;
+				
+			}
+		}
+		
+		for (Passenger p: seats) {
+			if (p instanceof Economy) {
+				numEconomy--;
+				this.status += Log.setUpgradeMsg(p);
+				p = p.upgrade();
+				numPremium++;
+				
+			}
+		}
+		
+//		if((firstCapacity - numFirst) > 0){
+//			for(int x = 0; x < seats.size(); x++){
+//				if((seats.get(x) instanceof Business) && (seats.get(x).isConfirmed()) && ((firstCapacity - numFirst) > 0)){
+//					Passenger upgradedPassenger = seats.get(x).upgrade();
+//					seats.remove(x);
+//					numBusiness--;
+//					seats.add(upgradedPassenger);
+//					numFirst++;
+//				}
+//			}
+//		}
+//		
+//		//System.out.println("First class populated, moving onto business class...\n");
+//		
+//		if((businessCapacity - numBusiness) > 0){
+//			for(int x = 0; x < seats.size(); x++){
+//				if((seats.get(x) instanceof Premium) && (seats.get(x).isConfirmed()) && ((businessCapacity - numBusiness) > 0)){
+//					Passenger upgradedPassenger = seats.get(x).upgrade();
+//					seats.remove(x);
+//					numPremium--;
+//					seats.add(upgradedPassenger);
+//					numBusiness++;
+//				}
+//			}
+//		}
+//		
+//		//System.out.println("First class populated, moving onto business class...\n");
+//		
+//		if((premiumCapacity - numPremium) > 0){
+//			for(int x = 0; x < seats.size(); x++){
+//				if((seats.get(x) instanceof Economy) && (seats.get(x).isConfirmed()) && ((premiumCapacity - numPremium) > 0)){
+//					Passenger upgradedPassenger = seats.get(x).upgrade();
+//					seats.remove(x);
+//					numEconomy--;
+//					seats.add(upgradedPassenger);
+//					numPremium++;
+//				}
+//			}
+//		}
 	}// End function
 
 	/**
