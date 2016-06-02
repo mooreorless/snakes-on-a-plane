@@ -1,0 +1,764 @@
+* 08845a1 : fixed validate functions
+*   ff485dc : fixed merge of gui sim and aircraft
+|\  
+| * 65f28a0 : GUI input validation
+* | 8a1a94c : Last check and formatting code and adding comments if required
+|/  
+* d90771f : begun @Before method for Andy to complete whilst I work on the gui test plan
+*   f447150 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\  
+| * 6c2039c : GUI log output addition
+* | 4d28334 : implemented @Before method in test classes -reduced repeated lines significantly
+|/  
+*   3b662ff : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\  
+| * eac510b : Set default constants for inputs
+* | 2462a8f : added default values for sim run
+|/  
+* 7c7011c : removed preferred size from mainTextArea to allow for scroll bars
+*   80b84cd : fixed merge with guisim
+|\  
+| *   ecfe37e : Merge remote-tracking branch 'origin/master'
+| |\  
+| * | e128be8 : Initial implemention of simulator runner
+* | | 909bb3b : fixed merge with guisimulator
+| |/  
+|/|   
+* | f6002ac : fixed empty seats total in getBookings - logs now correct
+* |   b627ed9 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\ \  
+| |/  
+| * 0c11f57 : Quick comment cleanups in a Aircraft/Passenger
+* | 345f454 : made frame resize to false, now for plumbing
+|/  
+*   6575976 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\  
+| * f94a33c : Small change to.. you guessed it.. upgradeBookings
+* | b5cd8c7 : got basic gui with text fields - needs wiring up
+|/  
+*   242c059 : fixed merge in aircraft - after anthony's check
+|\  
+| * 7fd5576 : More upgradeBooking, seatAvailable refactoring
+* | 95840c9 : The gui has begun - have textarea and some buttons, bulk private methods to come
+* |   9cca3a7 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\ \  
+| |/  
+| * 7ee65f5 : Updated upgradeBookings logic
+* | ef59877 : log output different trying to fix upgradeBookings
+|/  
+* 5b82140 : changed quality of seatsAvailable method to switch statement -much cleaner
+* a8f8eb4 : Fixed up some formatting in the Simulators package - my ide changed a few prefs
+* ae303b5 : Added more tests for FirstTests - wasQueued, wasConfirmed, upgrade
+*   85d6a75 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\  
+| * 5d01884 : UpgradeBooking logic + more tests
+| * 8c4d5a1 : Updated upgradeBookings() logic
+* | cf87d2e : Almost finished FirstTests bar 3 methods - then it's gui time
+|/  
+* fd1d667 : Added header file comment to FirstTests
+* 5495a71 : created skeleton tests in FirstTests
+*   0aaec1a : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\  
+| * 4ff2169 : Additional Aircraft constructor change
+| * 9e8280e : Back to 302 after Web Computing/CAB202 break! (Small Aircraft change + More tests)
+* | bef78c3 : more code quality checks - flightEmpty and flightFull. Initialised seats array list in aircraft constructor
+|/  
+*   098545b : fetched Jim's repo and fixed merge
+|\  
+| * 0dab636 : updated Simulator.toString() to include maxQueueSize, cancelProb
+| * 9cf799c : Restore Constants.SAVE_STATUS to false.
+| * 2efdda1 : Bug fix: createPassenger; final state of queue, cancelled; doc update
+| * 28a5b5f : Part 2 Release; asgn2Simulators package, Major javadoc update
+* | 147b744 : added intellij prj files to gitignore
+* | 2821424 : fixed gitignore
+* | 7943db8 : Created tests for getters in FirstTests
+* | 3f752be : got tutor feedback on code and quality - made appropriate changes
+* | 9ee129c : Got upgrade() test working
+* | e8d6047 : Test changes
+* | 76dab5a : added simulators package and updated javadoc
+* | ab13fce : A few tests for Aicraft
+* | e4f6915 : hopefully upgradeBookings works ;)
+* | 13df06e : Added passID prefixes to Passenger sub-class' upgrade() methods
+* | 604497d : Implemented the Upgrade() methods in all of Passenger's sub-classes
+* |   dd086a4 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\ \  
+| * | 8ce84ff : implemented flyPassengers, improved the seatsAvailable method to use the log messages
+| * | 9122c41 : fixed getPassengers to return a copy of seats into an arraylist
+| * | 9b418cd : completed confirmBooking in Aircraft - need to find a cleaner way to check passenger type
+| * | 80c6c2d : implemented cancelBooking in Aircraft
+* | | d1316b4 : Updated passenger sub-class constructors
+|/ /  
+* | ff48f67 : gitignore done
+* | b553020 : gitignore finally correct
+* | 2acd288 : removed metadata again
+* | 7d4ec6e : removed metadata
+* | dfd65df : removed unwanted ide files
+* | 11202e4 : had ignore file in wrong dir
+* | faead11 : gitignore pos
+* |   56d410a : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\ \  
+| * \   88aefbe : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+| |\ \  
+| * | | a43789d : Implemented wasConfirmed/Queued and the copy helper method
+* | | | d2831c3 : test git ignore
+| |/ /  
+|/| |   
+* | | ae0b0bb : removed ide xml files
+|/ /  
+* |   7131437 : Fix passenger merge
+|\ \  
+| * | cc49049 : completed A380 and B747 subclasses
+* | |   0624716 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\ \ \  
+| |/ /  
+| * |   7bf66d3 : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+| |\ \  
+| * | | 0e1ee2c : finished simple getters in Aircraft
+* | | | b9d1930 : Implemented passenger state transition methods
+| |/ /  
+|/| |   
+* | | 2ae1750 : Made small change in constructor
+* | | 8f9b1d1 : Implemented the constructor and simple getter methods in Passenger.java
+* | |   1a69f2a : Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+|\ \ \  
+| |/ /  
+| * | 0ce140b : removed .metadata
+| * | f29de74 : .idea files should be removed now
+| * | f3ed7ef : added intelli files to gitignore
+* | | f277811 : Created the asgn2Tests package with accompanying test cases
+|/ /  
+* |   fd60478 : initial commit with src files
+|\ \  
+| |/  
+|/|   
+| * 5befb74 : Initial commit
+* f0cbc8a : fix to name getNumEconomy
+* a54e38b : Fixed typo in Passenger.confirmSeat; Regenerated javadoc
+* 1532a03 : javadoc: POSTs on key methods; Fix Aircraft.upgradeBookings()
+* d8baff1 : Initial release of Passenger, Aircraft for studentscommit 08845a1277e701068c157864b5f7fa4d2d7c5121
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 23:35:13 2016 +1000
+
+    fixed validate functions
+
+commit ff485dc52fdd1333dfbbf918ae08d25b9001a4f1
+Merge: 8a1a94c 65f28a0
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 23:12:08 2016 +1000
+
+    fixed merge of gui sim and aircraft
+
+commit 8a1a94c27a4e1ae0d6725eb4ad7d687be7824fc3
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 23:09:19 2016 +1000
+
+    Last check and formatting code and adding comments if required
+
+commit 65f28a06806794b4ef0119d60303f81321c2abd7
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 23:02:05 2016 +1000
+
+    GUI input validation
+    
+    Implemented GUI parameter validation code. "It wasn’t very nice but we
+    got the job done." - Sam Thaiday.
+
+commit d90771f6e3869e0677f62ed5b416d25a3e1a46e3
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 22:52:08 2016 +1000
+
+    begun @Before method for Andy to complete whilst I work on the gui test plan
+
+commit f4471505cd886ec6e554b3937c5986838a36a764
+Merge: 4d28334 6c2039c
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 22:39:28 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit 4d283340af987fd6a63a3ebffef94083d4afddb3
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 22:37:59 2016 +1000
+
+    implemented @Before method in test classes -reduced repeated lines significantly
+
+commit 6c2039c1d76b152612b1e6807d4abf15f37ff85d
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 19:20:43 2016 +1000
+
+    GUI log output addition
+    
+    Added sim.toString && initial state to the start of the log file
+
+commit 3b662ffcf7286641d56add8c45a7d4eb6dac7aa6
+Merge: 2462a8f eac510b
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 18:54:21 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit 2462a8f26c806b8275755bd36db2ac496cbd9875
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 18:53:03 2016 +1000
+
+    added default values for sim run
+
+commit eac510bf81e3337a12a48ae78307eed303f1c925
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 18:44:28 2016 +1000
+
+    Set default constants for inputs
+    
+    Set each input text area to default values as specified by
+    Constants.java on startup.
+
+commit 7c7011cf285861fc425c40b19d72d265ca4a95a9
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 18:41:26 2016 +1000
+
+    removed preferred size from mainTextArea to allow for scroll bars
+
+commit 80b84cd1e6707ab0cab2f820942fa587a12815f4
+Merge: 909bb3b ecfe37e
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 18:28:16 2016 +1000
+
+    fixed merge with guisim
+
+commit 909bb3baa83a6cefb9955e1ddc48a3d1f788fba4
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 18:26:33 2016 +1000
+
+    fixed merge with guisimulator
+
+commit ecfe37e4e1c8cc7f23e05da80226788e8361d98d
+Merge: e128be8 f6002ac
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 18:25:35 2016 +1000
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	AircraftSimulator/src/asgn2Simulators/GUISimulator.java
+
+commit e128be8ce0f51b971c2fb15130adc6a3ddc712b1
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 18:21:26 2016 +1000
+
+    Initial implemention of simulator runner
+    
+    Began implementing the action listener for the run simulation button in
+    the GUI. So far it will run a simulation and write some (not correct)
+    values to the main text area.
+
+commit f6002ac4ab43777e6e48f65c5e436b5292eb3bd8
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 17:44:42 2016 +1000
+
+    fixed empty seats total in getBookings - logs now correct
+
+commit b627ed95f862259efc14f738765c4d41f6371c92
+Merge: 345f454 0c11f57
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 15:29:15 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit 345f454c7ffd51f40f1c37c41b1383941b580e40
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 15:28:59 2016 +1000
+
+    made frame resize to false, now for plumbing
+
+commit 0c11f572ff5aad42cd0b18f2ab434dd6cf5fec55
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 15:04:26 2016 +1000
+
+    Quick comment cleanups in a Aircraft/Passenger
+    
+    Deleted unnecessary/old comments
+
+commit 65759767c60acbeed9e9ecd7e58439d5f802ee87
+Merge: b5cd8c7 f94a33c
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 15:03:59 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit b5cd8c7c493ab07e77c17d6a130b2b892fb7c6f8
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 15:03:39 2016 +1000
+
+    got basic gui with text fields - needs wiring up
+
+commit f94a33c4122e8648c74a049ee0d1b01eb5628f58
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 12:01:11 2016 +1000
+
+    Small change to.. you guessed it.. upgradeBookings
+    
+    Log files are FINALLY reflecting correct values
+
+commit 242c0593a9f6fdc9ac2b0c941f2407b90337f173
+Merge: 95840c9 7fd5576
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 11:43:03 2016 +1000
+
+    fixed merge in aircraft - after anthony's check
+
+commit 7fd5576ceb519ccbbcb38bf4c71a60404090b437
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Thu Jun 2 11:40:08 2016 +1000
+
+    More upgradeBooking, seatAvailable refactoring
+    
+    Changes made to upgradeBooking & seatsAvailable, simplified + a lot
+    easier to read
+
+commit 95840c971140ebee0282d95d06a4c26e075f9b0a
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu Jun 2 11:39:33 2016 +1000
+
+    The gui has begun - have textarea and some buttons, bulk private methods to come
+
+commit 9cca3a7fbbee37ed6218f0694eea7b038f659ef1
+Merge: ef59877 7ee65f5
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 22:09:28 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit ef59877b94d0829fe2001132bcda688b77e166ec
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 22:09:18 2016 +1000
+
+    log output different trying to fix upgradeBookings
+
+commit 7ee65f5d24d926e6c43df59c15cf9d8fbd674826
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Wed Jun 1 22:07:05 2016 +1000
+
+    Updated upgradeBookings logic
+    
+    Adding in logic to ensure that the passenger being upgraded is still
+    confirmed on the flight
+
+commit 5b82140f742296e6b6fc63dadfa88b968dda4eff
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 21:33:32 2016 +1000
+
+    changed quality of seatsAvailable method to switch statement -much cleaner
+
+commit a8f8eb433d82700b8b8784a39b673f57b0a9388d
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 18:54:00 2016 +1000
+
+    Fixed up some formatting in the Simulators package - my ide changed a few prefs
+
+commit ae303b5ffc9791e897d95f3f71478f22ede8a3b4
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 17:12:02 2016 +1000
+
+    Added more tests for FirstTests - wasQueued, wasConfirmed, upgrade
+
+commit 85d6a75d75b32843d71c1e3cced34abe36a6dcbc
+Merge: cf87d2e 5d01884
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 16:46:58 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit cf87d2e7272088ccc122c1be343961451c74b1c6
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 16:46:30 2016 +1000
+
+    Almost finished FirstTests bar 3 methods - then it's gui time
+
+commit 5d01884e8498f37d3a1184efcb1fd3d49b6b27d9
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Wed Jun 1 15:33:17 2016 +1000
+
+    UpgradeBooking logic + more tests
+    
+    Finished implementing the upgradeBooking logic, has been verified with
+    further extensive unit tests.
+
+commit 8c4d5a1260d267b007ce5e1c317b10528d206c8c
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Wed Jun 1 12:16:31 2016 +1000
+
+    Updated upgradeBookings() logic
+    
+    Refactored for-each loops into iterator for loops. Added in modification
+    of passenger counts when a passenger is upgraded and logic now checks to
+    make sure there are still seats available in the (to be upgraded) class
+    after each successful passenger upgrade.
+
+commit fd1d6672c03b80ffb4626e41e2b04b4a9478f04f
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Wed Jun 1 10:59:25 2016 +1000
+
+    Added header file comment to FirstTests
+
+commit 5495a718c060fe8176d90aed3cc0feed53d96295
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Tue May 31 22:44:18 2016 +1000
+
+    created skeleton tests in FirstTests
+
+commit 0aaec1abecc0c56e7185841b042e651f475923b1
+Merge: bef78c3 4ff2169
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Tue May 31 21:25:34 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit bef78c352a88bb3e03b6337a146a4060e2ea420a
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Tue May 31 21:25:20 2016 +1000
+
+    more code quality checks - flightEmpty and flightFull. Initialised seats array list in aircraft constructor
+
+commit 4ff2169fd628d6fcb7f51eb427d810de4c3ea929
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Tue May 31 21:20:18 2016 +1000
+
+    Additional Aircraft constructor change
+    
+    Added a fix to the seats arrayList
+
+commit 9e8280e374199373411edfa55dcd7bfc60705985
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Tue May 31 21:19:08 2016 +1000
+
+    Back to 302 after Web Computing/CAB202 break! (Small Aircraft change + More tests)
+    
+    Added a small change to the Aircraft constructor and added further tests
+    for cancelBooking + tests for confirmBooking, flightEmpty and flightFull
+
+commit 098545b08c2b77c2985866d97fba36c71f027f99
+Merge: 147b744 0dab636
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Tue May 31 10:57:03 2016 +1000
+
+    fetched Jim's repo and fixed merge
+
+commit 147b744d2914d25d5aa75904aab59714030da30e
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Mon May 30 20:14:15 2016 +1000
+
+    added intellij prj files to gitignore
+
+commit 28214245bc14ca6b422c88e4ccafb867d8dbc779
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Mon May 30 19:56:34 2016 +1000
+
+    fixed gitignore
+
+commit 7943db853a1ec07f94836672d5a41ed185fab9b7
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Fri May 27 15:38:30 2016 +1000
+
+    Created tests for getters in FirstTests
+
+commit 3f752be9737b43a586a164c509015a77feda7371
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Thu May 26 14:49:23 2016 +1000
+
+    got tutor feedback on code and quality - made appropriate changes
+
+commit 0dab6367f87ce2767d3a712865f1fab734cfee38
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Wed May 25 21:25:58 2016 +1000
+
+    updated Simulator.toString() to include maxQueueSize, cancelProb
+
+commit 9cf799c486bf6a9ab8fda21efd7d68191f1064a4
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Wed May 25 00:06:15 2016 +1000
+
+    Restore Constants.SAVE_STATUS to false.
+
+commit 2efdda1e53d692af74f2c0b108075746a40915d8
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Wed May 25 00:03:33 2016 +1000
+
+    Bug fix: createPassenger; final state of queue, cancelled; doc update
+
+commit 9ee129cb68a30794c223231c3284bb00096f0af0
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 18:18:59 2016 +1000
+
+    Got upgrade() test working
+
+commit e8d604732544fdfa2540441cac010871534e58c0
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 17:49:01 2016 +1000
+
+    Test changes
+
+commit 76dab5a32fc10960bafe6895d46d0fb3c32cf038
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sun May 22 17:38:25 2016 +1000
+
+    added simulators package and updated javadoc
+
+commit ab13fceff4a89c8667c5bda4905b2b5d453728e5
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 17:36:33 2016 +1000
+
+    A few tests for Aicraft
+
+commit e4f6915cdfc84a0430d47392abc5b8282e968f8d
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sun May 22 16:49:17 2016 +1000
+
+    hopefully upgradeBookings works ;)
+
+commit 13df06e758817aa09652adb9c4ea148212c317a0
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 15:08:24 2016 +1000
+
+    Added passID prefixes to Passenger sub-class' upgrade() methods
+
+commit 604497d4196dd08382d4298bbe8d0886348b2b07
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 14:53:31 2016 +1000
+
+    Implemented the Upgrade() methods in all of Passenger's sub-classes
+
+commit dd086a40bfbdc845913b5bfd27c5d193e5142df0
+Merge: d1316b4 8ce84ff
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 14:28:52 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit d1316b494f8da5628ff49a6775847ca39107f696
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sun May 22 14:27:54 2016 +1000
+
+    Updated passenger sub-class constructors
+
+commit 8ce84ff197aab11d949f127c198c77e202ef3acc
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sun May 22 13:19:46 2016 +1000
+
+    implemented flyPassengers, improved the seatsAvailable method to use the log messages
+
+commit 9122c4166e7fe4140251664cda46367e99555a3d
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sun May 22 12:44:14 2016 +1000
+
+    fixed getPassengers to return a copy of seats into an arraylist
+
+commit 9b418cd31edef2de87a5a9085670de4156503074
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sun May 22 12:29:26 2016 +1000
+
+    completed confirmBooking in Aircraft - need to find a cleaner way to check passenger type
+
+commit 80c6c2d1b8d18b5d602a31c9ce8711d594591982
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sun May 22 12:22:39 2016 +1000
+
+    implemented cancelBooking in Aircraft
+
+commit ff48f673d68b8114984a7a2bf0c37d2b8fdd108c
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:57:04 2016 +1000
+
+    gitignore done
+
+commit b5530202e993c74fd2827f312304b9d18407a5ea
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:55:42 2016 +1000
+
+    gitignore finally correct
+
+commit 2acd2886f0ad46db9e189f786b25d2ade7ed5542
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:54:19 2016 +1000
+
+    removed metadata again
+
+commit 7d4ec6ecf2751ec1a481fec83bc2a906d07b4e6e
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:51:42 2016 +1000
+
+    removed metadata
+
+commit dfd65df484b75aa0193f72ec86680ed58b003b53
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:50:49 2016 +1000
+
+    removed unwanted ide files
+
+commit 11202e425a947145c95f50e91dd3cadbd6b35d21
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:49:17 2016 +1000
+
+    had ignore file in wrong dir
+
+commit faead11d21d693e40626982e634fecc43db9a9d6
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:45:43 2016 +1000
+
+    gitignore pos
+
+commit 56d410a54b9fbed89c2cb46201fc6941fc22d14b
+Merge: d2831c3 88aefbe
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:43:03 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit d2831c359e7dee83ab9e8e589e9123874ae51287
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 19:42:31 2016 +1000
+
+    test git ignore
+
+commit 88aefbe9d30aa7c8850bfd20aecc08885c3ea5e5
+Merge: a43789d ae0b0bb
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 18:51:40 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit a43789d63ac363d3e71bc54c3a5b1b63a60ab9f7
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 18:50:44 2016 +1000
+
+    Implemented wasConfirmed/Queued and the copy helper method
+
+commit ae0b0bb604d5c517e3b294a2ced645130dcb4892
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 17:41:07 2016 +1000
+
+    removed ide xml files
+
+commit 71314370e1d48e58f4b5b666088384a9dcee88cd
+Merge: 0624716 cc49049
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 17:38:01 2016 +1000
+
+    Fix passenger merge
+
+commit cc4904932f997648f73733ba396bfb26f13fc08f
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 17:34:04 2016 +1000
+
+    completed A380 and B747 subclasses
+
+commit 0624716628c2374e0555435147a6a857b3aeba21
+Merge: b9d1930 7bf66d3
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 17:29:30 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit b9d193070ad5c73e579e291f448129e392241d71
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 17:28:42 2016 +1000
+
+    Implemented passenger state transition methods
+
+commit 7bf66d317c643341861dbe17b00369e6a3d0029e
+Merge: 0e1ee2c 2ae1750
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 13:40:14 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit 2ae1750af28253165a5ea8f4a8a66400dc113d94
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 13:39:53 2016 +1000
+
+    Made small change in constructor
+
+commit 0e1ee2cd2c341a3f0a1032f2dc9274c3e1eb63ed
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 13:39:48 2016 +1000
+
+    finished simple getters in Aircraft
+
+commit 8f9b1d138989a46bd69395f745b0e562eb966f5e
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 13:28:44 2016 +1000
+
+    Implemented the constructor and simple getter methods in Passenger.java
+
+commit 1a69f2a2e8ac6efe617d2652fad08f9f41e926e2
+Merge: f277811 0ce140b
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 12:45:25 2016 +1000
+
+    Merge branch 'master' of https://github.com/jem93/snakes-on-a-plane
+
+commit f2778113a426dec063e7a278a45f18967a1573b0
+Author: Andy <andrew.john.orourke@gmail.com>
+Date:   Sat May 21 12:43:17 2016 +1000
+
+    Created the asgn2Tests package with accompanying test cases
+
+commit 0ce140beb1b5cd202944dc2942b801c1c6d70ee6
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 12:06:05 2016 +1000
+
+    removed .metadata
+
+commit f29de740418c3e10d4d6ccfcd440ce5d02552734
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 12:05:21 2016 +1000
+
+    .idea files should be removed now
+
+commit f3ed7ef38955b64f8e1c8ea4a109f531d4ad9d5e
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Sat May 21 12:00:35 2016 +1000
+
+    added intelli files to gitignore
+
+commit 28a5b5f2ab7fa81822ccb3b3e992074378800455
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Fri May 20 22:35:56 2016 +1000
+
+    Part 2 Release; asgn2Simulators package, Major javadoc update
+
+commit fd60478cceb1b8b879a7e596ee2abbea62189ff4
+Merge: f0cbc8a 5befb74
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Fri May 20 14:32:41 2016 +1000
+
+    initial commit with src files
+
+commit 5befb74657a4783ec195a340a6b3be1fa19f09b3
+Author: Elliott Moore <elliott.moore@moretonbay.qld.gov.au>
+Date:   Fri May 20 13:49:07 2016 +1000
+
+    Initial commit
+
+commit f0cbc8ace3f627cafe62ab0dd21e88dde328dd34
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Sun May 15 11:07:05 2016 +1000
+
+    fix to name getNumEconomy
+
+commit a54e38bf29ab90c258086e408391072120465b85
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Thu May 12 13:10:12 2016 +1000
+
+    Fixed typo in Passenger.confirmSeat; Regenerated javadoc
+
+commit 1532a031449ab4a2bab5c7cb344edeb96e75d1ec
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Thu May 12 10:35:21 2016 +1000
+
+    javadoc: POSTs on key methods; Fix Aircraft.upgradeBookings()
+
+commit d8baff101b14ee95f5b342bac4c869a09b64feea
+Author: James M. Hogan <j.hogan@qut.edu.au>
+Date:   Mon May 9 22:24:23 2016 +1000
+
+    Initial release of Passenger, Aircraft for students
