@@ -366,7 +366,7 @@ public abstract class Aircraft {
 					for(int j = 0; j < seats.size(); j++){
 						if (seats.get(j) instanceof Business) {
 							// if there are still seats available in first
-							if(seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()){
+							if (seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()) {
 								Passenger upgradedBusinessPassenger = seats.get(j).upgrade();
 								// Remove old business passenger, add in new upgraded business passenger & update counts
 								seats.remove(seats.get(j));
@@ -381,7 +381,7 @@ public abstract class Aircraft {
 				if (seatsAvailable(seats.get(i))) {
 					for (int j = 0; j < seats.size(); j++) {
 						if (seats.get(j) instanceof Premium) {
-							if(seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()){
+							if (seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()) {
 								Passenger upgradedPremiumPassenger = seats.get(j).upgrade();
 								seats.remove(seats.get(j));
 								numPremium--;
@@ -395,7 +395,7 @@ public abstract class Aircraft {
 				if (seatsAvailable(seats.get(i))) {
 					for (int j = 0; j < seats.size(); j++) {
 						if (seats.get(j) instanceof Economy) {
-							if(seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()){
+							if (seatsAvailable(seats.get(i)) && seats.get(j).isConfirmed()) {
 								Passenger upgradedEconomyPassenger = seats.get(j).upgrade();
 								seats.remove(seats.get(j));
 								numEconomy--;
@@ -408,7 +408,6 @@ public abstract class Aircraft {
 			}
 
 		}// End for
-
 	}// End function
 
 	/**

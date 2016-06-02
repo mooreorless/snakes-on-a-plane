@@ -503,13 +503,13 @@ public class FirstTests {
 		int bookingTime = 1000;
 		int departureTime = 2000;
 		Passenger business = new Business(bookingTime, departureTime);
-		Passenger upgraded = new First(bookingTime, departureTime);
+		Passenger upgraded = new Business(bookingTime, departureTime);
 
-		business.upgrade();
+		Passenger newPassenger = business.upgrade();
+		Passenger otherPassenger = upgraded.upgrade();
 
 		//check that assert is upgraded
-
-	//	assertNotSame(business, upgraded);
+		assertSame(newPassenger.getPassID().charAt(0), otherPassenger.getPassID().charAt(0));
 	}
 
 	@Test

@@ -460,22 +460,11 @@ public abstract class Passenger {
 	 * @param <code>Passenger</code> state to transfer
 	 */
 	protected void copyPassengerState(Passenger p) {
-//		p.passID = this.passID;
-//		p.newState = this.newState;
-//		p.confirmed = this.confirmed;
-//		p.inQueue = this.inQueue;
-//		p.flown = this.flown;
-//		p.refused = this.refused;
-//		p.bookingTime = this.bookingTime;
-//		p.enterQueueTime = this.enterQueueTime;
-//		p.exitQueueTime = this.exitQueueTime;
-//		p.confirmationTime = this.confirmationTime;
-//		p.departureTime = this.departureTime;
-			this.passID = p.passID;
-			this.newState = p.newState;
-			this.confirmed = p.confirmed;
-			this.inQueue = p.inQueue;
-			this.flown = p.flown;
+		this.passID = p.passID;
+		this.newState = p.newState;
+		this.confirmed = p.confirmed;
+		this.inQueue = p.inQueue;
+		this.flown = p.flown;
 		this.refused = p.refused;
 		this.bookingTime = p.bookingTime;
 		this.enterQueueTime = p.enterQueueTime;
