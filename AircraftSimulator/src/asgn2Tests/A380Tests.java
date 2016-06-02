@@ -1,5 +1,5 @@
 /**
- * 
+ * This A380 test class tests all the methods from the inherited abstract class of Aircraft.
  */
 package asgn2Tests;
 
@@ -21,12 +21,20 @@ import java.lang.*;
 
 public class A380Tests {
 
+	private A380 testA380;
+	private String testFlightCode;
+	private int normalDepatureTime, normalConfirmationTime, normalCancellationTime, negativeDepartureTime, departureTimeZero;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
+		//Setup default ints here
+		testFlightCode = "testFlightCode";
+
+		// Use for normal test case
+		testA380 = new A380(testFlightCode, normalDepatureTime);
 	}
 
 	// Test methods for A380/Aircraft constructor
