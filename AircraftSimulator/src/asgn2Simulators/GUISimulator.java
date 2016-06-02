@@ -85,13 +85,9 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		btnShowChart = createButton(showChartBtnText);
 
 		rngSeedTxt = createTextField();
-		rngSeedTxt.setText("100");
 		meanTxt = createTextField();
-		meanTxt.setText("1300");
 		queueSizeTxt = createTextField();
-		queueSizeTxt.setText("500");
 		cancelTxt = createTextField();
-		cancelTxt.setText("0.1");
 
 		simulationLbl = createLabel(simulationLblStyle);
 
@@ -103,13 +99,21 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		fareClassLbl = createLabel(fareClassLblStyle);
 
 		firstTxt = createTextField();
-		firstTxt.setText("0.03");
 		businessTxt = createTextField();
-		businessTxt.setText("0.14");
 		premiumTxt = createTextField();
-		premiumTxt.setText("0.13");
 		economyTxt = createTextField();
-		economyTxt.setText("0.70");
+		
+		//Set defaults run sim values
+
+		rngSeedTxt.setText("100");
+		meanTxt.setText("1300.0");
+		queueSizeTxt.setText("500");
+		cancelTxt.setText("0.1");
+
+		firstTxt.setText("0.03");
+		businessTxt.setText("0.14");
+		premiumTxt.setText("0.13");
+		economyTxt.setText("0.7");
 
 		//Set defaults run sim values
 
@@ -197,6 +201,9 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		sim.createSchedule();
 		//this.log.initialEntry(sim);
 		returnString += "Start of simulation:\n";
+		returnString += sim.toString() + "\n";
+		String capacities = sim.getFlights(Constants.FIRST_FLIGHT).initialState();
+		returnString += capacities;
 		
 		//Main simulation loop 
 		for (int time = 0; time <= Constants.DURATION; time++) {
@@ -222,7 +229,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		sim.finaliseQueuedAndCancelledPassengers(Constants.DURATION); 
 		//this.log.logQREntries(Constants.DURATION, sim);
 		//this.log.finalise(sim);
-		returnString += "\n End of Simulation\n";
+		returnString += "\nEnd of Simulation\n";
 		returnString += sim.finalState();
 		
 		return returnString;
