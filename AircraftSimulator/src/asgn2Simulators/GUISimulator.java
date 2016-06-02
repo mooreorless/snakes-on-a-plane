@@ -76,8 +76,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		mainTextArea = createTextArea("Run the simulation as is, or specify your own values below.");
 
 		JScrollPane textAreaScrollable = new JScrollPane(mainTextArea);
-//		textAreaScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//		textAreaScrollable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 
 		btnPnl = createPanel(Color.WHITE);
@@ -106,6 +104,19 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		premiumTxt = createTextField();
 		economyTxt = createTextField();
 
+		//Set defaults run sim values
+
+		rngSeedTxt.setText("100");
+		meanTxt.setText("1300.0");
+		queueSizeTxt.setText("500");
+		cancelTxt.setText("0.1");
+
+		firstTxt.setText("0.03");
+		businessTxt.setText("0.14");
+		premiumTxt.setText("0.13");
+		economyTxt.setText("0.7");
+
+
 		firstLbl = createLabel("First");
 		businessLbl = createLabel("Business");
 		premiumLbl = createLabel("Premium");
@@ -129,13 +140,12 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	}
 
 	private JTextArea createTextArea(String str) {
-		JTextArea display = new JTextArea(20, 5);
+		JTextArea display = new JTextArea(30, 2);
 		display.setEditable(false);
 		display.setLineWrap(true);
 		//change text size later might be too big
 		display.setText(str);
 		display.setFont(new Font("Arial", Font.PLAIN, 16));
-		//display.setPreferredSize(new Dimension(800, 390));
 		display.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		display.setAlignmentX(LEFT_ALIGNMENT);
 
