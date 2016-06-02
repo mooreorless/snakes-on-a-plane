@@ -137,7 +137,7 @@ public abstract class Passenger {
 		this.confirmed = false;
 		this.bookingTime = cancellationTime;
 		
-	}// End cancelSeat()
+	}
 
 	/**
 	 * Transition passenger to Confirmed seat<br>
@@ -179,7 +179,7 @@ public abstract class Passenger {
 		//Update passenger's confirmation/departure times
 		this.confirmationTime = confirmationTime;
 		this.departureTime = departureTime;
-	}// End confirmSeat()
+	}
 
 	/**
 	 * Transition passenger to Flown<br>
@@ -438,7 +438,6 @@ public abstract class Passenger {
 	public boolean wasConfirmed() {
 		
 		int minConfirmationTime = 0;
-		// My tutor made this suggestion for simple boolean returns
 		return this.confirmed || this.confirmationTime > minConfirmationTime;
 	}
 

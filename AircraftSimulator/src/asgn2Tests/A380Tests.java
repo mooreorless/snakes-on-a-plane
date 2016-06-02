@@ -569,7 +569,7 @@ public class A380Tests {
 		int first = 10;
 		int business = 60;
 		int premium = 31;
-		int economy = 371; 
+		int economy = 371;
 		
 		A380 testA380 = new A380("Flight 117", 2200);
 		

@@ -192,7 +192,6 @@ public abstract class Aircraft {
 
 		for (Passenger p : seats) {
 			p.flyPassenger(departureTime);
-			//change status???
 		}
 	}
 	
@@ -388,46 +387,6 @@ public abstract class Aircraft {
 				}
 			}	
 		}
-		
-//		if((firstCapacity - numFirst) > 0){
-//			for(int x = 0; x < seats.size(); x++){
-//				if((seats.get(x) instanceof Business) && (seats.get(x).isConfirmed()) && ((firstCapacity - numFirst) > 0)){
-//					Passenger upgradedPassenger = seats.get(x).upgrade();
-//					seats.remove(x);
-//					numBusiness--;
-//					seats.add(upgradedPassenger);
-//					numFirst++;
-//				}
-//			}
-//		}
-//		
-//		//System.out.println("First class populated, moving onto business class...\n");
-//		
-//		if((businessCapacity - numBusiness) > 0){
-//			for(int x = 0; x < seats.size(); x++){
-//				if((seats.get(x) instanceof Premium) && (seats.get(x).isConfirmed()) && ((businessCapacity - numBusiness) > 0)){
-//					Passenger upgradedPassenger = seats.get(x).upgrade();
-//					seats.remove(x);
-//					numPremium--;
-//					seats.add(upgradedPassenger);
-//					numBusiness++;
-//				}
-//			}
-//		}
-//		
-//		//System.out.println("First class populated, moving onto business class...\n");
-//		
-//		if((premiumCapacity - numPremium) > 0){
-//			for(int x = 0; x < seats.size(); x++){
-//				if((seats.get(x) instanceof Economy) && (seats.get(x).isConfirmed()) && ((premiumCapacity - numPremium) > 0)){
-//					Passenger upgradedPassenger = seats.get(x).upgrade();
-//					seats.remove(x);
-//					numEconomy--;
-//					seats.add(upgradedPassenger);
-//					numPremium++;
-//				}
-//			}
-//		}
 	}// End function
 
 	/**
