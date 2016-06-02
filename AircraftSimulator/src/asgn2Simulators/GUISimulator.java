@@ -87,9 +87,13 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		btnShowChart = createButton(showChartBtnText);
 
 		rngSeedTxt = createTextField();
+		rngSeedTxt.setText("100");
 		meanTxt = createTextField();
+		meanTxt.setText("1300");
 		queueSizeTxt = createTextField();
+		queueSizeTxt.setText("500");
 		cancelTxt = createTextField();
+		cancelTxt.setText("0.1");
 
 		simulationLbl = createLabel(simulationLblStyle);
 
@@ -98,19 +102,21 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		queueSizeLbl = createLabel("Queue Size");
 		cancelLbl = createLabel("Cancellation");
 
-
 		fareClassLbl = createLabel(fareClassLblStyle);
 
 		firstTxt = createTextField();
+		firstTxt.setText("0.03");
 		businessTxt = createTextField();
+		businessTxt.setText("0.14");
 		premiumTxt = createTextField();
+		premiumTxt.setText("0.13");
 		economyTxt = createTextField();
+		economyTxt.setText("0.70");
 
 		firstLbl = createLabel("First");
 		businessLbl = createLabel("Business");
 		premiumLbl = createLabel("Premium");
 		economyLbl = createLabel("Economy");
-
 
 		layoutButtonPanel();
 
