@@ -1,7 +1,9 @@
 /**
  * 
  * This file is part of the AircraftSimulator Project, written as 
- * part of the assessment for CAB302, semester 1, 2016. 
+ * part of the assessment for CAB302, semester 1, 2016.
+ *
+ * This class sets up the A380 Aircraft with its capacities for each Fare Class.
  * 
  */
 package asgn2Aircraft;

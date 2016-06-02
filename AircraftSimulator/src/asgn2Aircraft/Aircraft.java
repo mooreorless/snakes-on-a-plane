@@ -97,12 +97,11 @@ public abstract class Aircraft {
 		if (!hasPassenger(p)) {
 			throw new AircraftException("Passenger not recorded on flight");
 		}
-		
 		p.cancelSeat(cancellationTime);
 		this.status += Log.setPassengerMsg(p, "C", "N");
 		seats.remove(p);
 
-		// Determine passenger type and decrement it's fare count
+		// Determine cancelled passengers type and decrement it's fare count
 		if (p instanceof First) {
 			numFirst--;
 		} else if (p instanceof Business) {
@@ -134,7 +133,7 @@ public abstract class Aircraft {
 		seats.add(p);
 		this.status += Log.setPassengerMsg(p,"N/Q","C");
 
-		// Determine passenger type and increment it's fare count
+		// Determine confirmed passengers type and increment it's fare count
 		if (p instanceof First) {
 			numFirst++;
 		} else if (p instanceof Business) {
@@ -165,7 +164,6 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if aircraft empty; false otherwise 
 	 */
 	public boolean flightEmpty() {
-
 		return this.getNumPassengers() == 0;
 	}
 	
@@ -189,7 +187,6 @@ public abstract class Aircraft {
 	 * See {@link asgn2Passengers.Passenger#flyPassenger(int)}. 
 	 */
 	public void flyPassengers(int departureTime) throws PassengerException {
-
 		for (Passenger p : seats) {
 			p.flyPassenger(departureTime);
 		}
@@ -211,7 +208,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Business Class passengers 
 	 */
 	public int getNumBusiness() {
-
 		return numBusiness;
 	}
 	
@@ -222,7 +218,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Economy Class passengers 
 	 */
 	public int getNumEconomy() {
-
 		return numEconomy;
 	}
 
@@ -232,7 +227,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of First Class passengers 
 	 */
 	public int getNumFirst() {
-
 		return numFirst;
 	}
 
@@ -242,7 +236,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Confirmed passengers 
 	 */
 	public int getNumPassengers() {
-
 		return (numFirst + numBusiness + numPremium + numEconomy);
 	}
 	
@@ -252,7 +245,6 @@ public abstract class Aircraft {
 	 * @return <code>int</code> number of Premium Economy Class passengers
 	 */
 	public int getNumPremium() {
-
 		return numPremium;
 	}
 	
@@ -290,8 +282,7 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if isConfirmed(p); false otherwise 
 	 */
 	public boolean hasPassenger(Passenger p) {
-
-		return this.seats.indexOf(p) >=0;
+		return this.seats.indexOf(p) >= 0;
 	}
 	
 
@@ -316,13 +307,11 @@ public abstract class Aircraft {
 	 * @return <code>boolean</code> true if seats in Class(p); false otherwise
 	 */
 	public boolean seatsAvailable(Passenger p) {
-
-//		returns just F, J, P, Y rather than F: etc
 		if (p instanceof First) {
 			return ((firstCapacity - numFirst) > 0);
-		} else if(p instanceof Business){
+		} else if (p instanceof Business){
 			return ((businessCapacity - numBusiness) > 0);
-		} else if(p instanceof Premium) {
+		} else if (p instanceof Premium) {
 			return ((premiumCapacity - numPremium) > 0);
 		} else {
 			return ((economyCapacity - numEconomy) > 0);
@@ -354,9 +343,9 @@ public abstract class Aircraft {
 	 * where possible to Premium.  
 	 */
 	public void upgradeBookings() {
-		
-		if((firstCapacity - numFirst) > 0){
-			for (Passenger p: seats) {
+
+		if ((firstCapacity - numFirst) > 0) {
+			for (Passenger p : seats) {
 				if (p instanceof Business && (firstCapacity - numFirst) > 0) {
 					numBusiness--;
 					this.status += Log.setUpgradeMsg(p);
@@ -366,8 +355,8 @@ public abstract class Aircraft {
 			}
 		}
 		
-		if((businessCapacity - numBusiness) > 0){
-			for (Passenger p: seats) {
+		if ((businessCapacity - numBusiness) > 0) {
+			for (Passenger p : seats) {
 				if (p instanceof Premium && (businessCapacity - numBusiness) > 0) {
 					numPremium--;
 					this.status += Log.setUpgradeMsg(p);
@@ -377,8 +366,8 @@ public abstract class Aircraft {
 			}
 		}
 		
-		if((premiumCapacity - numPremium) > 0){
-			for (Passenger p: seats) {
+		if ((premiumCapacity - numPremium) > 0) {
+			for (Passenger p : seats) {
 				if (p instanceof Economy && (premiumCapacity - numPremium) > 0) {
 					numEconomy--;
 					this.status += Log.setUpgradeMsg(p);
@@ -387,7 +376,7 @@ public abstract class Aircraft {
 				}
 			}	
 		}
-	}// End function
+	}
 
 	/**
 	 * Simple String method for the Aircraft ID 
