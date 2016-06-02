@@ -63,6 +63,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+		frame.setResizable(false);
 
 		//Styles
 		String runSimBtnText = "<html><h1 style='font-weight: bold; font-size: 1em; color: grey;'>Run Simulation</h1></html>";
@@ -105,6 +106,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		businessLbl = createLabel("Business");
 		premiumLbl = createLabel("Premium");
 		economyLbl = createLabel("Economy");
+
 
 		layoutButtonPanel();
 
@@ -160,7 +162,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
         
             }
         });  
-		button.setPreferredSize(new Dimension(200, 45));
+		button.setPreferredSize(new Dimension(220, 45));
 
 		return button;
 	}
@@ -210,7 +212,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		GridBagLayout btnLayout = new GridBagLayout();
 
 		btnPnl.setLayout(btnLayout);
-
+		
 		// add components to gridbag
 		GridBagConstraints btnConstraints = new GridBagConstraints();
 		//Defaults
@@ -220,11 +222,12 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		btnConstraints.weighty = 100;
 		btnConstraints.ipadx = 15;
 		btnConstraints.ipady = 15;
-
+		
+		//Buttons
 		addToPanel(btnPnl, btnRunSim, btnConstraints, 1, 2, 1, 1);
 		addToPanel(btnPnl, btnShowChart, btnConstraints, 1, 1, 1, 1);
 
-		//Simulation Heading
+		//Simulation
 		addToPanel(simPnl, simulationLbl, btnConstraints, 1, 1, 1, 1);
 
 		addToPanel(simPnl, rngSeedLbl, btnConstraints, 1, 1, 1, 1);
@@ -267,8 +270,7 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	private JPanel createPanel(Color c) {
 		JPanel panel = new JPanel();
 		panel.setBackground(c);
-		panel.setPreferredSize(new Dimension(800, 150));
-//		panel.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.setMaximumSize(new Dimension(80, 25));
 
 		return panel;
 	}
@@ -278,8 +280,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		label.setText(str);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setForeground(Color.DARK_GRAY);
-		//label.setFont(new Font("Sans-serif", Font.BOLD, 18));
-		//label.setAlignmentX(0.5f);
 
 		return label;
 	}
