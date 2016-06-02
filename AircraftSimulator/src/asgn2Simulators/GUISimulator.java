@@ -26,9 +26,8 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	private JTextArea mainTextArea;
 	private JTextField rngSeedTxt, meanTxt, queueSizeTxt, cancelTxt,
 	firstTxt, businessTxt, premiumTxt, economyTxt;
-	private JLabel rngSeedLbl, meanLbl, queueSizeLbl, cancelLbl,
-		simulationLbl, fareClassLbl, firstLbl, businessLbl,
-		premiumLbl, economyLbl;
+	private JLabel rngSeedLbl, meanLbl, queueSizeLbl, cancelLbl, simulationLbl, fareClassLbl,
+										firstLbl, businessLbl, premiumLbl, economyLbl;
 	private JPanel btnPnl, simPnl;
 	private JButton btnRunSim, btnShowChart;
 
@@ -65,17 +64,22 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 		frame.setResizable(false);
 
 		//Styles
-		String runSimBtnText = "<html><h1 style='font-weight: bold; font-size: 1em; color: grey;'>Run Simulation</h1></html>";
+		String runSimBtnText = "<html><h1 style='font-weight: bold; font-size: 1em; color: grey; text-decoration: underline;'>Run Simulation</h1></html>";
 		String showChartBtnText = "<html><h1 style='font-weight: bold; font-size: 1em; color: grey;'>Show Chart</h1></html>";
 
 		String simulationLblStyle = "<html><h1 style='font-weight: bold; font-size: 1.1em; color: black;'>Simulation &nbsp;</h1></html>";
 		String fareClassLblStyle = "<html><h1 style='font-weight: bold; font-size: 1.1em; color: black;'>Fare Classes &nbsp;</h1></html>";
 
 
-		mainTextArea = createTextArea();
+		// On load
+		mainTextArea = createTextArea("Run the simulation as is, or specify your own values below.");
+
+		JScrollPane textAreaScrollable = new JScrollPane(mainTextArea);
+		textAreaScrollable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		textAreaScrollable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 
-		btnPnl = createPanel(Color.GRAY);
+		btnPnl = createPanel(Color.WHITE);
 		simPnl = createPanel(Color.lightGray);
 
 		btnRunSim = createButton(runSimBtnText);
@@ -109,27 +113,30 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 
 		layoutButtonPanel();
 
-		frame.getContentPane().add(mainTextArea, BorderLayout.PAGE_START);
+		btnShowChart.setEnabled(false);
+
+		frame.getContentPane().add(textAreaScrollable, BorderLayout.PAGE_START);
 		frame.getContentPane().add(btnPnl, BorderLayout.PAGE_END);
 		frame.getContentPane().add(simPnl, BorderLayout.CENTER);
 
 
 // Don't add buttons here - use addToPanel method
 
-
 		frame.repaint();
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-	private JTextArea createTextArea() {
+	private JTextArea createTextArea(String str) {
 		JTextArea display = new JTextArea();
 		display.setEditable(false);
 		display.setLineWrap(true);
 		//change text size later might be too big
+		display.setText(str);
 		display.setFont(new Font("Arial", Font.PLAIN, 16));
-		display.setBorder(BorderFactory.createEtchedBorder());
 		display.setPreferredSize(new Dimension(800, 390));
+		display.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		display.setAlignmentX(LEFT_ALIGNMENT);
 
 		return display;
 	}
@@ -137,7 +144,6 @@ public class GUISimulator extends JFrame implements Runnable, ActionListener {
 	private JButton createButton(String str) {
 		JButton button = new JButton();
 		button.setText(str);
-		button.addActionListener(this);
 		button.setPreferredSize(new Dimension(220, 45));
 
 		return button;
